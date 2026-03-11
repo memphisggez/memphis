@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Memphis - Official Store</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+/* ปรับโทนสีเป็น ขาว ดำ เทา ตามที่ระบุ */
+--bg:#f4f4f4;
+--main:#333333;
+--dark:#1a1a1a;
+--white:#FFFFFF;
+--glow:rgba(0,0,0,0.1);
+--accent:#666666;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Mitr',sans-serif;}
+
+body{
+background:var(--bg);
+display:flex;
+justify-content:center;
+}
+
+.container{
+max-width:500px;
+width:100%;
+padding:20px 15px 40px;
+}
+
+.section{
+background:var(--white);
+border-radius:20px;
+padding:25px 20px;
+margin-bottom:20px;
+box-shadow:0 8px 20px rgba(0,0,0,0.05);
+border:2px solid var(--main);
+}
+
+h1,h2,h3{color:var(--dark);}
+.center{text-align:center;}
+
+.logo{
+width:150px;height:150px;
+border-radius:50%;
+overflow:hidden;
+margin:0 auto 20px;
+box-shadow:0 6px 20px var(--glow);
+background:#eee; /* สีพื้นหลังกรณีรูปยังไม่มา */
+}
+
+.logo img{width:100%;height:100%;object-fit:cover;}
+
+.badges{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:10px;
+margin-bottom:20px;
+}
+
+.badge{
+background:#fff;
+padding:8px 16px;
+border-radius:25px;
+box-shadow:0 4px 10px var(--glow);
+font-size:13px;
+color:var(--dark);
+border: 1px solid #eee;
+}
+
+.btn{
+display:block;
+text-align:center;
+padding:14px;
+border-radius:25px;
+text-decoration:none;
+margin-top:15px;
+font-weight:500;
+transition: 0.3s;
+}
+
+.btn-outline{
+background:#fff;
+border:2px dashed var(--main);
+color:var(--dark);
+}
+
+.btn-main{
+background:var(--main);
+color:#fff;
+}
+
+.step{
+display:flex;
+align-items:center;
+gap:12px;
+margin-bottom:12px;
+}
+
+.step-num{
+background:var(--main);
+color:#fff;
+width:26px;height:26px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:13px;
+}
+
+.price-row{
+display:flex;
+justify-content:space-between;
+margin-bottom:10px;
+background:#f9f9f9;
+padding:10px 15px;
+border-radius:15px;
+border-left: 4px solid var(--accent);
+}
+
+.price-tag{
+background:var(--main);
+color:#fff;
+padding:3px 12px;
+border-radius:20px;
+font-size:14px;
+}
+
+/* ส่วนแสดง Banner กลุ่ม */
+.group-banner {
+width:100%;
+height:auto;
+border-radius:15px;
+margin-top:10px;
+border: 1px solid #ddd;
+}
+
+.footer{
+text-align:center;
+margin-top:30px;
+}
+
+.socials{
+display:flex;
+gap:8px;
+justify-content:center;
+margin-top:15px;
+}
+
+.socials a{
+flex:1;
+max-width:100px;
+text-align:center;
+padding:8px;
+border-radius:25px;
+background:#fff;
+text-decoration:none;
+color:var(--dark);
+font-size:13px;
+border:1px solid #ddd;
+}
+
+.small{font-size:12px;opacity:.7;margin-top:10px;}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<div class="section center" style="border:none;box-shadow:none;background:transparent;">
+
+<div class="logo">
+<img src="logo_memphis.jpg" alt="Memphis Logo">
+</div>
+
+<h1>Memphis</h1>
+<p style="color:var(--dark);opacity:.8;margin:10px 0 20px;">
+ร้านเมมฟิส กลุ่มงานป้าย ยินดีให้บริการครับ 🖤
+</p>
+
+<div class="badges">
+<div class="badge">🌑 Memphis Group</div>
+<div class="badge">✒️ รับทำป้าย</div>
+<div class="badge">📁 กลุ่มของตกแต่ง</div>
+</div>
+
+<a href="#" class="btn btn-outline">
+เช็คคิวงาน Memphis ✨
+</a>
+</div>
+
+<div class="section">
+<h2>🔗 กลุ่มในเครือ Memphis</h2>
+<p style="font-size: 14px; color: var(--accent); margin-bottom: 10px;">รายการกลุ่มและพื้นที่โชว์ผลงาน</p>
+
+<img src="group_banner_1.jpg" alt="Memphis Group Banner" class="group-banner">
+
+<div class="step" style="margin-top:15px;">
+<div class="step-num">!</div>
+<div>เข้ากลุ่มเพื่อรับของตกแต่งและอัปเดตงาน</div>
+</div>
+
+<a href="https://www.facebook.com/hani.37341/" class="btn btn-main">เข้าร่วมกลุ่มในเครือ</a>
+</div>
+
+<div class="section">
+<h2>📝 ขั้นตอนสั่งงาน</h2>
+
+<div class="step"><div class="step-num">1</div><div>เลือกแพ็กเกจที่ต้องการ</div></div>
+<div class="step"><div class="step-num">2</div><div>บรีฟรายละเอียดงาน/โทนสี</div></div>
+<div class="step"><div class="step-num">3</div><div>ชำระเงินเพื่อลงคิวงาน</div></div>
+<div class="step"><div class="step-num">4</div><div>รอรับงานผ่านช่องทางที่แจ้ง</div></div>
+
+<a href="https://www.facebook.com/hani.37341/" class="btn btn-main">บรีฟงานทาง Inbox</a>
+</div>
+
+<div class="section">
+<h2>💰 ราคางานป้าย</h2>
+
+<div class="price-row"><span>ป้ายโปรโมชั่น</span><span class="price-tag">เริ่มต้น 59.-</span></div>
+<div class="price-row"><span>ป้ายบัญชี</span><span class="price-tag">เริ่มต้น 49.-</span></div>
+<div class="price-row"><span>งานเซ็ตสุดคุ้ม</span><span class="price-tag">สอบถามราคา</span></div>
+
+<a href="#" class="btn btn-main">ดูตารางราคาแบบละเอียด</a>
+</div>
+
+<div class="footer">
+<a href="https://www.facebook.com/hani.37341/" class="btn btn-main">ติดต่อสอบถาม (Facebook) ✉️</a>
+
+<div class="socials">
+<a href="https://www.facebook.com/hani.37341/">Facebook</a>
+<a href="#">Line OA</a>
+<a href="#">Portfolio</a>
+</div>
+
+<p class="small">
+© 2026 Memphis Store - All Rights Reserved
+</p>
+</div>
+
+</div>
+</body>
+</html>
