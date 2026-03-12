@@ -128,7 +128,7 @@ font-size:13px;
 flex-shrink: 0;
 }
 
-/* --- NEW: CSS สำหรับ Portfolio Grid --- */
+/* Portfolio Grid */
 .portfolio-grid {
 display: grid;
 grid-template-columns: repeat(2, 1fr);
@@ -154,12 +154,24 @@ border: 1px solid #ddd;
 }
 
 .portfolio-card span {
-font-size: 12px;
+font-size: 13px;
 color: var(--dark);
 display: block;
-font-weight: 400;
+font-weight: 500;
+margin-bottom: 8px;
 }
-/* -------------------------------------- */
+
+/* ปรับแต่ง Badge ภายใน Card ให้เล็กกะทัดรัด */
+.portfolio-card .badges {
+gap: 5px;
+margin-bottom: 5px;
+}
+
+.portfolio-card .badge {
+padding: 4px 8px;
+font-size: 10px;
+border-radius: 15px;
+}
 
 .price-row{
 display:flex;
@@ -243,9 +255,10 @@ border:1px solid #ddd;
 
 <div class="section">
 <h2 class="center">🔗 กลุ่มในเครือ Memphis</h2>
-<p style="font-size: 14px; color: var(--accent); margin: 10px;">
+<p class="center" style="font-size: 14px; color: var(--accent); margin: 10px 0 15px;">
 รายการกลุ่มในเครือที่แอดมินดึงเมลเอง
 </p>
+
 <div class="portfolio-grid">
     <div class="portfolio-card">
         <img src="Baby heading.jpg" alt="ผลงาน">
@@ -282,21 +295,21 @@ border:1px solid #ddd;
             <div class="badge">🆕 บล็อกคุณนิว</div>
         </div>
     </div>
-    
 </div>
-<div class="step" style="margin-top:15px;">
+
+<div class="step" style="margin-top:15px; justify-content: center;">
 <div class="step-num">!</div>
-<div>โปรดตรวจสอบว่ากลุ่มที่สนใจเข้า ไม่ใช่กลุ่มที่ท่านเคยเข้าแล้ว</div>
+<div style="font-size: 13px;">โปรดตรวจสอบว่ากลุ่มที่สนใจเข้า ไม่ใช่กลุ่มที่ท่านเคยเข้าแล้ว</div>
 </div>
 </div>
 
 <div class="section">
-<h2>🔗 กลุ่มในเครือ Memphis</h2>
-<p style="font-size: 14px; color: var(--accent); margin-bottom: 10px;">รายการกลุ่มในเครือที่แอดมินดึงเมลเอง</p>
+<h2 class="center">📁 รายละเอียดเพิ่มเติม</h2>
+<p class="center" style="font-size: 14px; color: var(--accent); margin-bottom: 10px;">รายการกลุ่มในเครือที่แอดมินดึงเมลเอง</p>
 <img src="group_banner_1.jpg" alt="Memphis Group Banner" class="group-banner">
-<div class="step" style="margin-top:15px;">
+<div class="step" style="margin-top:15px; justify-content: center;">
 <div class="step-num">!</div>
-<div>โปรดตรวจสอบว่ากลุ่มที่สนใจเข้า ไม่ใช่กลุ่มที่ท่านเคยเข้าแล้ว</div>
+<div style="font-size: 13px;">โปรดตรวจสอบกลุ่มก่อนทำการสั่งซื้อ</div>
 </div>
 </div>
 
