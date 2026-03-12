@@ -9,7 +9,6 @@
 
 <style>
 :root{
-/* ปรับโทนสีเป็น ขาว ดำ เทา ตามที่ระบุ */
 --bg:#f4f4f4;
 --main:#333333;
 --dark:#1a1a1a;
@@ -50,7 +49,7 @@ border-radius:50%;
 overflow:hidden;
 margin:0 auto 20px;
 box-shadow:0 6px 20px var(--glow);
-background:#eee; /* สีพื้นหลังกรณีรูปยังไม่มา */
+background:#eee;
 }
 
 .logo img{width:100%;height:100%;object-fit:cover;}
@@ -88,6 +87,21 @@ transition: 0.3s;
 background:#fff;
 border:2px dashed var(--main);
 color:var(--dark);
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: 8px;
+overflow: hidden;
+height: auto;
+padding: 15px;
+}
+
+.btn-outline img {
+width: 100%;
+max-width: 400px;
+height: auto;
+border-radius: 10px;
 }
 
 .btn-main{
@@ -111,6 +125,7 @@ display:flex;
 align-items:center;
 justify-content:center;
 font-size:13px;
+flex-shrink: 0;
 }
 
 .price-row{
@@ -131,7 +146,6 @@ border-radius:20px;
 font-size:14px;
 }
 
-/* ส่วนแสดง Banner กลุ่ม */
 .group-banner {
 width:100%;
 height:auto;
@@ -173,7 +187,6 @@ border:1px solid #ddd;
 <div class="container">
 
 <div class="section center" style="border:none;box-shadow:none;background:transparent;">
-
 <div class="logo">
 <img src="ผมม้าปิดตา.JPG" alt="Memphis Logo">
 </div>
@@ -190,57 +203,46 @@ border:1px solid #ddd;
 </div>
 
 <a href="#" class="btn btn-outline">
-<img src="ปกเฟส.png" >
-เช็คคิวงาน Memphis ✨
+<img src="ปกเฟส.png" alt="Check Queue">
+<span>เช็คคิวงาน Memphis ✨</span>
 </a>
 </div>
 
 <div class="section">
 <h2>🔗 กลุ่มในเครือ Memphis</h2>
 <p style="font-size: 14px; color: var(--accent); margin-bottom: 10px;">รายการกลุ่มในเครือที่แอดมินดึงเมลเอง</p>
-
 <img src="group_banner_1.jpg" alt="Memphis Group Banner" class="group-banner">
-
 <div class="step" style="margin-top:15px;">
 <div class="step-num">!</div>
 <div>โปรดตรวจสอบว่ากลุ่มที่สนใจเข้า ไม่ใช่กลุ่มที่ท่านเคยเข้าแล้ว</div>
 </div>
-
 </div>
 
 <div class="section">
 <h2>📝 ขั้นตอนเข้ากลุ่ม</h2>
-  
 <div class="step"><div class="step-num">1</div><div>แคปภาพกลุ่มที่ต้องการ</div></div>
-<div class="step"><div class="step-num">2</div><div>ส่งภาพกลุ่มที่ต้องการให้แอดมิน
+<div class="step"><div class="step-num">2</div><div>ส่งภาพกลุ่มที่ต้องการให้แอดมิน</div></div>
 <div class="step"><div class="step-num">3</div><div>รอแอดมินรวมยอดและส่งช่องทางการชำระเงิน</div></div>
 <div class="step"><div class="step-num">4</div><div>ชำระเงิน แนบสลิปพร้อมไอดีไลน์ รอแอดมินดึงเข้ากลุ่ม</div></div>
-
 <a href="https://www.facebook.com/hani.37341/" class="btn btn-main">ติดต่อแอดมิน</a>
 </div>
 
 <div class="section">
 <h2>💰 ราคางานป้าย</h2>
-
 <div class="price-row"><span>ป้ายโปรโมชั่น</span><span class="price-tag">เริ่มต้น 59.-</span></div>
 <div class="price-row"><span>ป้ายบัญชี</span><span class="price-tag">เริ่มต้น 49.-</span></div>
 <div class="price-row"><span>งานเซ็ตสุดคุ้ม</span><span class="price-tag">สอบถามราคา</span></div>
-
 <a href="#" class="btn btn-main">ดูตารางราคาแบบละเอียด</a>
 </div>
 
 <div class="footer">
 <a href="https://www.facebook.com/hani.37341/" class="btn btn-main">ติดต่อสอบถาม (Facebook) ✉️</a>
-
 <div class="socials">
 <a href="https://www.facebook.com/hani.37341/">Facebook</a>
 <a href="#">Line OA</a>
 <a href="#">Portfolio</a>
 </div>
-
-<p class="small">
-© 2026 Memphis Store - All Rights Reserved
-</p>
+<p class="small">© 2026 Memphis Store - All Rights Reserved</p>
 </div>
 
 </div>
