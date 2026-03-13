@@ -140,12 +140,22 @@ gap: 15px;
 margin-top: 15px;
 }
 
+/* ปรับปรุง card ให้รองรับการคลิก */
 .portfolio-card {
 background: #f9f9f9;
 border: 1px solid #eee;
 border-radius: 15px;
 padding: 10px;
 text-align: center;
+text-decoration: none; /* ลบเส้นใต้ลิงก์ */
+display: block;
+color: inherit;
+transition: 0.3s;
+}
+
+.portfolio-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
 .portfolio-card img {
@@ -187,7 +197,6 @@ border-radius:15px;
 border-left: 4px solid var(--accent);
 }
 
-/* ปรับแต่งปุ่มคลิกในแถวราคา */
 .price-tag-link{
 background:var(--main);
 color:#fff;
@@ -291,14 +300,14 @@ border:1px solid #ddd;
 </p>
 
 <div class="portfolio-grid">
-    <div class="portfolio-card">
+    <a href="https://drive.google.com/drive/folders/1p6glllZ-mVtNFLdFlEyVS5R4aXw_D8cl?usp=sharing" target="_blank" class="portfolio-card">
         <img src="Baby heading.jpg" alt="ผลงาน">
         <span>Baby heading</span>
         <div class="badges">
             <div class="badge">⭐ กลุ่มยอดฮิต</div>
             <div class="badge">📝 กลุ่มสอน</div>
         </div>
-    </div>
+    </a>
     
     <div class="portfolio-card">
         <img src="Locker ตู้เก็บของ.jpg" alt="ผลงาน">
