@@ -8,6 +8,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
+/* เพิ่ม smooth scroll เพื่อให้เวลาคลิกแล้วเลื่อนลงแบบนุ่มนวล */
+html {
+  scroll-behavior: smooth;
+}
+
 :root{
 --bg:#f4f4f4;
 --main:#333333;
@@ -128,7 +133,6 @@ font-size:13px;
 flex-shrink: 0;
 }
 
-/* Portfolio Grid */
 .portfolio-grid {
 display: grid;
 grid-template-columns: repeat(2, 1fr);
@@ -161,7 +165,6 @@ font-weight: 500;
 margin-bottom: 8px;
 }
 
-/* ปรับแต่ง Badge ภายใน Card ให้เล็กกะทัดรัด */
 .portfolio-card .badges {
 gap: 5px;
 margin-bottom: 5px;
@@ -176,11 +179,28 @@ border-radius: 15px;
 .price-row{
 display:flex;
 justify-content:space-between;
+align-items: center;
 margin-bottom:10px;
 background:#f9f9f9;
 padding:10px 15px;
 border-radius:15px;
 border-left: 4px solid var(--accent);
+}
+
+/* ปรับแต่งปุ่มคลิกในแถวราคา */
+.price-tag-link{
+background:var(--main);
+color:#fff;
+padding:3px 15px;
+border-radius:20px;
+font-size:14px;
+text-decoration: none;
+transition: 0.3s;
+}
+
+.price-tag-link:hover {
+background: var(--dark);
+transform: scale(1.05);
 }
 
 .price-tag{
@@ -249,7 +269,10 @@ border:1px solid #ddd;
 
 <div class="section">
 <h2>💰 รายการสินค้าและบริการ</h2>
-<div class="price-row"><span>กลุ่มงานป้ายในเครือ</span><span class="price-tag">คลิก</span></div>
+<div class="price-row">
+    <span>กลุ่มงานป้ายในเครือ</span>
+    <a href="#target-group" class="price-tag-link">คลิก</a>
+</div>
 <div class="price-row"><span>กลุ่มงานป้ายอื่นๆ</span><span class="price-tag">คลิก</span></div>
 <div class="price-row"><span>Id Genshin</span><span class="price-tag">คลิก</span></div>
 <a href="#" class="btn btn-main">ดูตารางราคาแบบละเอียด</a>
@@ -261,7 +284,7 @@ border:1px solid #ddd;
 </a>
 </div>
 
-<div class="section">
+<div class="section" id="target-group">
 <h2 class="center">🔗 กลุ่มในเครือ Memphis</h2>
 <p class="center" style="font-size: 14px; color: var(--accent); margin: 10px 0 15px;">
 รายการกลุ่มในเครือที่แอดมินดึงเมลเอง
