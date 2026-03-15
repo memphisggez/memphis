@@ -4,11 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Id Genshin - Memphis Store</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-/* ใช้สไตล์เดียวกับหน้าแรกเพื่อให้ดีไซน์ต่อเนื่องกัน */
 html { scroll-behavior: smooth; }
 :root{
 --bg:#f4f4f4;
@@ -18,73 +16,23 @@ html { scroll-behavior: smooth; }
 --glow:rgba(0,0,0,0.1);
 --accent:#666666;
 }
-
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Mitr',sans-serif;}
-
-body{
-background:var(--bg);
-display:flex;
-justify-content:center;
-}
-
-.container{
-max-width:500px;
-width:100%;
-padding:20px 15px 40px;
-}
-
-.section{
-background:var(--white);
-border-radius:20px;
-padding:25px 20px;
-margin-bottom:20px;
-box-shadow:0 8px 20px rgba(0,0,0,0.05);
-border:2px solid var(--main);
-}
-
+body{background:var(--bg); display:flex; justify-content:center;}
+.container{max-width:500px; width:100%; padding:20px 15px 40px;}
+.section{background:var(--white); border-radius:20px; padding:25px 20px; margin-bottom:20px; box-shadow:0 8px 20px rgba(0,0,0,0.05); border:2px solid var(--main);}
 h1,h2,h3{color:var(--dark);}
 .center{text-align:center;}
+.badges{display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-bottom:15px;}
+.badge{background:#fff; padding:8px 16px; border-radius:25px; box-shadow:0 4px 10px var(--glow); font-size:13px; color:var(--dark); border: 1px solid #eee;}
 
-.badges{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:10px;
-margin-bottom:20px;
-}
+.btn-main{display:block; text-align:center; padding:14px; border-radius:25px; text-decoration:none; margin-top:15px; font-weight:500; transition: 0.3s; background:var(--main); color:#fff;}
+.btn-main:hover {background: var(--dark); transform: scale(1.02);}
 
-.badge{
-background:#fff;
-padding:8px 16px;
-border-radius:25px;
-box-shadow:0 4px 10px var(--glow);
-font-size:13px;
-color:var(--dark);
-border: 1px solid #eee;
-}
-
-.btn-main{
-display:block;
-text-align:center;
-padding:14px;
-border-radius:25px;
-text-decoration:none;
-margin-top:15px;
-font-weight:500;
-transition: 0.3s;
-background:var(--main);
-color:#fff;
-}
-
-.btn-main:hover {
-background: var(--dark);
-transform: scale(1.02);
-}
-
+/* ปรับปรุง Grid ให้โชว์ทีละไอดี */
 .portfolio-grid {
 display: grid;
-grid-template-columns: repeat(2, 1fr);
-gap: 15px;
+grid-template-columns: 1fr; 
+gap: 20px;
 margin-top: 15px;
 }
 
@@ -92,7 +40,7 @@ margin-top: 15px;
 background: #f9f9f9;
 border: 1px solid #eee;
 border-radius: 15px;
-padding: 10px;
+padding: 15px;
 text-align: center;
 text-decoration: none;
 display: block;
@@ -107,62 +55,26 @@ box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 
 .portfolio-card img {
 width: 100%;
-aspect-ratio: 16/9; /* ปรับสัดส่วนภาพให้เหมาะกับหน้าจอ Genshin */
+aspect-ratio: 16/9; 
 object-fit: cover;
-border-radius: 10px;
-margin-bottom: 8px;
+border-radius: 12px;
+margin-bottom: 12px;
 border: 1px solid #ddd;
 }
 
 .portfolio-card span {
-font-size: 13px;
+font-size: 16px;
 color: var(--dark);
 display: block;
 font-weight: 500;
-margin-bottom: 8px;
+margin-bottom: 10px;
 }
 
-.portfolio-card .badge {
-font-size: 10px;
-padding: 4px 8px;
-border-radius: 15px;
-margin-top: 5px;
-}
-
-.btn-back {
-display: inline-block;
-margin-bottom: 15px;
-text-decoration: none;
-color: var(--main);
-font-size: 14px;
-font-weight: 500;
-}
-
-.footer{
-text-align:center;
-margin-top:30px;
-}
-
-.small{font-size:12px;opacity:.7;margin-top:10px;}
-
-.step{
-display:flex;
-align-items:center;
-gap:12px;
-margin-bottom:12px;
-}
-
-.step-num{
-background:var(--main);
-color:#fff;
-width:26px;height:26px;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:13px;
-flex-shrink: 0;
-}
+.btn-back {display: inline-block; margin-bottom: 15px; text-decoration: none; color: var(--main); font-size: 14px; font-weight: 500;}
+.footer{text-align:center; margin-top:30px;}
+.small{font-size:12px; opacity:.7; margin-top:10px;}
+.step{display:flex; align-items:center; gap:12px; margin-bottom:12px;}
+.step-num{background:var(--main); color:#fff; width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; flex-shrink: 0;}
 </style>
 </head>
 
@@ -177,38 +89,37 @@ flex-shrink: 0;
 รวมไอดี Genshin Impact คุณภาพ ปลอดภัย 100% ⚔️
 </p>
 <div class="badges">
-    <div class="badge">💎 ไอดีเริ่มต้น (Starter)</div>
-    <div class="badge">✨ ไอดีฟาร์ม (Semi-Farm)</div>
-    <div class="badge">🔥 ไอดีเทพ (End-Game)</div>
+    <div class="badge">💎 ไอดีเริ่มต้น</div>
+    <div class="badge">✨ ไอดีฟาร์ม</div>
+    <div class="badge">🔥 ไอดีเทพ</div>
 </div>
 </div>
 
 <div class="section">
-<h2 class="center">🔗 รายการไอดีแนะนำ</h2>
+<h2 class="center">🔗 รายการไอดีพร้อมส่ง</h2>
 <p class="center" style="font-size: 14px; color: var(--accent); margin-bottom: 15px;">
-คลิกที่บัตรเพื่อดูรายละเอียดเพิ่มเติมใน Google Drive
+คลิกที่บัตรเพื่อดูรูปภาพเพิ่มเติมและรายละเอียดไอดี
 </p>
 
 <div class="portfolio-grid">
     <a href="URL_DRIVE_GENSHIN_1" target="_blank" class="portfolio-card">
         <img src="genshin_starter_1.jpg" alt="ไอดีเริ่มต้น">
-        <span>เริ่มต้น: Raiden Shogun Starter</span>
-        <div class="badges" style="gap:5px;">
-            <div class="badge">💎 Starter</div>
-            <div class="badge">✅ ปลอดภัย</div>
+        <span>Raiden Shogun + Engulfing Lightning Starter</span>
+        <div class="badges" style="margin-bottom:0; gap:5px;">
+            <div class="badge" style="font-size:11px; padding:5px 12px;">💎 Starter</div>
+            <div class="badge" style="font-size:11px; padding:5px 12px;">✅ มีของพร้อมส่ง</div>
         </div>
     </a>
 
     <a href="URL_DRIVE_GENSHIN_2" target="_blank" class="portfolio-card">
         <img src="genshin_farm_1.jpg" alt="ไอดีฟาร์ม">
-        <span>Semi-Farm: Hu Tao + Homa</span>
-        <div class="badges" style="gap:5px;">
-            <div class="badge">✨ Semi-Farm</div>
-            <div class="badge">🔥 โหด</div>
+        <span>Arlecchino + Signature Weapon (Semi-Farm)</span>
+        <div class="badges" style="margin-bottom:0; gap:5px;">
+            <div class="badge" style="font-size:11px; padding:5px 12px;">✨ Semi-Farm</div>
+            <div class="badge" style="font-size:11px; padding:5px 12px;">🔥 ดาเมจแรง</div>
         </div>
     </a>
-    
-    </div>
+</div>
 </div>
 
 <div class="section">
@@ -221,11 +132,10 @@ flex-shrink: 0;
 </div>
 
 <div class="section">
-<h2>💰 หมายเหตุการซื้อขาย</h2>
+<h2>💰 หมายเหตุ</h2>
 <p style="font-size: 14px; color: var(--accent); line-height: 1.6;">
-* ไอดีทุกไอดีได้รับการตรวจสอบความปลอดภัยแล้ว<br>
-* หลังการซื้อขายสำเร็จ โปรดเปลี่ยนรหัสผ่านและผูกอีเมลทันที<br>
-* ทางร้านจะไม่รับผิดชอบหากเกิดปัญหาหลังจากผู้ซื้อนำไอดีไปใช้งานแล้ว (เช่น โดนแบนจากการใช้โปรแกรมช่วยเล่น)
+* ตรวจสอบความถูกต้องก่อนโอนเงินทุกครั้ง<br>
+* แนะนำให้เปลี่ยนรหัสผ่านและผูกเบอร์มือถือทันทีที่ได้รับไอดี
 </p>
 </div>
 
