@@ -11,13 +11,13 @@
 html { scroll-behavior: smooth; }
 
 :root{
---bg-url: url('BG 1.gif'); /* พื้นหลังเดียวกับหน้าแรก */
+--bg-url: url('BG 1.gif'); 
 --main:#333333;
 --dark:#1a1a1a;
 --white:#FFFFFF;
 --glow:rgba(0,0,0,0.1);
 --accent:#666666;
---stroke-color: #f3f5f4; /* สีเส้นขอบตัวหนังสือ */
+--stroke-color: #f3f5f4;
 }
 
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Mitr',sans-serif;}
@@ -32,7 +32,6 @@ justify-content:center;
 min-height: 100vh;
 }
 
-/* ส่วนหัวข้อที่มีเส้นขอบ (Outline Stroke) */
 .hero-title {
   color: var(--dark);
   -webkit-text-stroke: 1.5px var(--stroke-color);
@@ -104,7 +103,18 @@ background: var(--dark);
 transform: scale(1.02);
 }
 
-/* แสดงทีละ 1 ไอดีแบบเน้นๆ */
+/* สไตล์เฉพาะสำหรับปุ่มราคาในการ์ด */
+.price-tag {
+background: #ff4757; /* สีแดงโดดเด่น */
+color: white;
+padding: 5px 20px;
+border-radius: 15px;
+font-weight: 500;
+display: inline-block;
+margin-top: 5px;
+font-size: 15px;
+}
+
 .portfolio-grid {
 display: grid;
 grid-template-columns: 1fr; 
@@ -186,6 +196,13 @@ z-index: 100;
 pointer-events: none;
 filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2)); 
 }
+
+/* ปรับสไตล์เครื่องเล่นเพลง */
+audio {
+width: 100%;
+margin-top: 10px;
+height: 35px;
+}
 </style>
 </head>
 
@@ -202,45 +219,44 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
 รวมไอดี Genshin Impact คุณภาพ ปลอดภัย 100% ⚔️
 </p>
 <div class="badges">
-    <div class="badge">💎 ไอดีเริ่มต้น</div>
-    <div class="badge">✨ ไอดีฟาร์ม</div>
-    <div class="badge">🔥 ไอดีเทพ</div>
+    <div class="badge">💎 ไอดีเริ่มต้น</div>
+    <div class="badge">✨ ไอดีฟาร์ม</div>
+    <div class="badge">🔥 ไอดีเทพ</div>
 </div>
 </div>
 
-  <div class="section center">
-    <p>🎵 ฟังเพลงเพลินๆ ระหว่างเลือกไอดี</p>
+<div class="section center">
+    <p style="font-size: 14px;">🎵 Lullaby of the New Moon</p>
     <audio controls autoplay loop>
         <source src="Lullaby of the New Moon I Somnias a Luna.mp3" type="audio/mpeg">
-        เบราว์เซอร์ของคุณไม่รองรับการเล่นเครื่องเล่นเสียง
     </audio>
 </div>
 
 <div class="section">
-<h2 class="center">🔗 รายการไอดีพร้อมส่ง</h2>
+<h2 class="section-title">🔗 รายการไอดีพร้อมส่ง</h2>
 <p class="center" style="font-size: 14px; color: var(--accent); margin-bottom: 15px;">
-คลิกที่บัตรเพื่อดูรูปภาพเพิ่มเติมและรายละเอียดไอดี
+คลิกที่บัตรเพื่อดูรายละเอียดเพิ่มเติม
 </p>
 
 <div class="portfolio-grid">
-        <a href="URL_DRIVE_GENSHIN_1" target="_blank" class="portfolio-card">
-        <img src="ไอดี 1.jpg" alt="ไอดีเริ่มต้น">
-        <span>Alhaitham C3R1 + Clorinde R1 + Columbina R1</span>
-        <div class="badges" style="margin-bottom:0; gap:5px;">
-            <div class="badge" style="font-size:11px; padding:5px 12px;">✅ มีของพร้อมส่ง</div>
-          <a href="#" class="btn btn-main">400฿</a>
-        </div>
-          
-    </a>
+    <a href="URL_DRIVE_GENSHIN_1" target="_blank" class="portfolio-card">
+        <img src="ไอดี 1.jpg" alt="ไอดีที่ 1">
+        <span>Alhaitham C3R1 + Clorinde R1 + Columbina R1</span>
+        
+        <div class="badges" style="margin-bottom:0; gap:5px;">
+            <div class="badge" style="font-size:11px; padding:5px 12px; background: #e8f5e9; color: #2e7d32; border-color: #c8e6c9;">✅ มีของพร้อมส่ง</div>
+            <div class="price-tag">400฿</div>
+        </div>
+    </a>
 
-        <a href="URL_DRIVE_GENSHIN_2" target="_blank" class="portfolio-card">
-        <img src="genshin_farm_1.jpg" alt="ไอดีฟาร์ม">
-        <span>Arlecchino + Signature Weapon (Semi-Farm)</span>
-        <div class="badges" style="margin-bottom:0; gap:5px;">
-            <div class="badge" style="font-size:11px; padding:5px 12px;">✨ Semi-Farm</div>
-            <div class="badge" style="font-size:11px; padding:5px 12px;">🔥 ดาเมจแรง</div>
-        </div>
-    </a>
+    <a href="URL_DRIVE_GENSHIN_2" target="_blank" class="portfolio-card">
+        <img src="genshin_farm_1.jpg" alt="ไอดีฟาร์ม">
+        <span>Arlecchino + Signature Weapon (Semi-Farm)</span>
+        <div class="badges" style="margin-bottom:0; gap:5px;">
+            <div class="badge" style="font-size:11px; padding:5px 12px;">✨ Semi-Farm</div>
+            <div class="badge" style="font-size:11px; padding:5px 12px;">🔥 ดาเมจแรง</div>
+        </div>
+    </a>
 </div>
 </div>
 
