@@ -14,35 +14,47 @@ html {
 }
 
 :root{
-/* ปรับตัวแปร BG ให้ชี้ไปที่ BG.gif (หรือลบออกแล้วใส่ใน body ตรงๆ) */
 --bg-url: url('BG 1.gif'); 
 --main:#333333;
 --dark:#1a1a1a;
 --white:#FFFFFF;
 --glow:rgba(0,0,0,0.1);
 --accent:#666666;
+--stroke-color: #f3f5f4; /* โค้ดสีเส้นขอบที่ต้องการ */
 }
 
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Mitr',sans-serif;}
 
 body{
-/* --- EDIT AREA START: เปลี่ยนพื้นหลัง --- */
 background-image: var(--bg-url);
-background-attachment: fixed; /* พื้นหลังไม่เลื่อนตามตัวเว็บ */
-background-size: cover;      /* ปรับพื้นหลังให้เต็มหน้าจอ */
-background-position: center;  /* จัดพื้นหลังให้อยู่ตรงกลาง */
-/* --- EDIT AREA END --- */
+background-attachment: fixed;
+background-size: cover;
+background-position: center;
 display:flex;
 justify-content:center;
-/* มั่นใจว่า body มีความสูงอย่างน้อยเต็มหน้าจอเพื่อให้พื้นหลังเต็ม */
 min-height: 100vh; 
 }
+
+/* --- ส่วนที่เพิ่ม Outline Stroke --- */
+.hero-title {
+  color: var(--dark);
+  -webkit-text-stroke: 1.5px var(--stroke-color);
+  paint-order: stroke fill;
+  font-size: 2.5rem;
+}
+
+.hero-subtitle {
+  color: var(--dark);
+  font-weight: 500;
+  -webkit-text-stroke: 0.8px var(--stroke-color);
+  paint-order: stroke fill;
+}
+/* ---------------------------------- */
 
 .container{
 max-width:500px;
 width:100%;
 padding:20px 15px 40px;
-/* ปรับ container ให้อยู่ด้านบนของพื้นหลังเล็กน้อยถ้าต้องการ */
 position: relative;
 z-index: 1;
 }
@@ -151,14 +163,13 @@ gap: 15px;
 margin-top: 15px;
 }
 
-/* ปรับปรุง card ให้รองรับการคลิก */
 .portfolio-card {
 background: #f9f9f9;
 border: 1px solid #eee;
 border-radius: 15px;
 padding: 10px;
 text-align: center;
-text-decoration: none; /* ลบเส้นใต้ลิงก์ */
+text-decoration: none;
 display: block;
 color: inherit;
 transition: 0.3s;
@@ -266,19 +277,16 @@ border:1px solid #ddd;
 
 .small{font-size:12px;opacity:.7;margin-top:10px;}
 
-/* --- EDIT AREA START: ภาพลอยมุมขวาล่าง --- */
 .floating-cat {
-position: fixed; /* ลอยอยู่กับที่บนหน้าจอ */
-bottom: 20px;    /* ห่างจากด้านล่าง 20px */
-right: 20px;     /* ห่างจากด้านขวา 20px */
-width: 100px;    /* ปรับขนาดความกว้างภาพตามต้องการ */
-height: auto;    /* ปรับความสูงอัตโนมัติ */
-z-index: 100;    /* อยู่ชั้นบนสุดของหน้าเว็บ */
-pointer-events: none; /* เพื่อไม่ให้ภาพบังการคลิกปุ่มด้านหลัง (ถ้ามี) */
-/* เพิ่มเงาเล็กน้อยให้ภาพลอยดูมีมิติ */
+position: fixed;
+bottom: 20px;
+right: 20px;
+width: 100px;
+height: auto;
+z-index: 100;
+pointer-events: none;
 filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2)); 
 }
-/* --- EDIT AREA END --- */
 </style>
 </head>
 
@@ -291,8 +299,8 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
 <img src="ผมม้าปิดตา.JPG" alt="Memphis Logo">
 </div>
 
-<h1>Memphis</h1>
-<p style="color:var(--dark);opacity:.8;margin:10px 0 20px;">
+<h1 class="hero-title">Memphis</h1>
+<p class="hero-subtitle" style="opacity:.9;margin:10px 0 20px;">
 ร้านเมมฟิส กลุ่มงานป้าย ยินดีให้บริการ 🖤
 </p>
 
@@ -353,7 +361,7 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
     </a>
     
     <a href="https://drive.google.com/drive/folders/1EEx9iIpJFX-UTKKku_f_6VIhLGVZ6zDf" target="_blank" class="portfolio-card">
-        <img src="のび太 โนบิตะ.jpg" alt="ผลงาน">
+        <img src="ของถูกใจ โนบิตะ.jpg" alt="ผลงาน">
         <span>のび太 โนบิตะ</span>
         <div class="badges">
             <div class="badge">⭐ กลุ่มยอดฮิต</div>
@@ -675,14 +683,12 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
             <div class="badge">⚠️ ปิดปรับปรุง</div>
         </div>
     </a>
-  
 </div>
 
 <div class="step" style="margin-top:15px; justify-content: center;">
 <div class="step-num">!</div>
 <div style="font-size: 13px;">โปรดตรวจสอบว่ากลุ่มที่สนใจเข้า ไม่ใช่กลุ่มที่ท่านเคยเข้าแล้ว</div>
 </div>
-  
 </div>
 
 <div class="section">
