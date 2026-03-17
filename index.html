@@ -14,7 +14,8 @@ html {
 }
 
 :root{
---bg:#f4f4f4;
+/* ปรับตัวแปร BG ให้ชี้ไปที่ BG.gif (หรือลบออกแล้วใส่ใน body ตรงๆ) */
+--bg-url: url('BG.gif'); 
 --main:#333333;
 --dark:#1a1a1a;
 --white:#FFFFFF;
@@ -25,15 +26,25 @@ html {
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Mitr',sans-serif;}
 
 body{
-background:var(--bg);
+/* --- EDIT AREA START: เปลี่ยนพื้นหลัง --- */
+background-image: var(--bg-url);
+background-attachment: fixed; /* พื้นหลังไม่เลื่อนตามตัวเว็บ */
+background-size: cover;      /* ปรับพื้นหลังให้เต็มหน้าจอ */
+background-position: center;  /* จัดพื้นหลังให้อยู่ตรงกลาง */
+/* --- EDIT AREA END --- */
 display:flex;
 justify-content:center;
+/* มั่นใจว่า body มีความสูงอย่างน้อยเต็มหน้าจอเพื่อให้พื้นหลังเต็ม */
+min-height: 100vh; 
 }
 
 .container{
 max-width:500px;
 width:100%;
 padding:20px 15px 40px;
+/* ปรับ container ให้อยู่ด้านบนของพื้นหลังเล็กน้อยถ้าต้องการ */
+position: relative;
+z-index: 1;
 }
 
 .section{
@@ -254,11 +265,26 @@ border:1px solid #ddd;
 }
 
 .small{font-size:12px;opacity:.7;margin-top:10px;}
+
+/* --- EDIT AREA START: ภาพลอยมุมขวาล่าง --- */
+.floating-cat {
+position: fixed; /* ลอยอยู่กับที่บนหน้าจอ */
+bottom: 20px;    /* ห่างจากด้านล่าง 20px */
+right: 20px;     /* ห่างจากด้านขวา 20px */
+width: 100px;    /* ปรับขนาดความกว้างภาพตามต้องการ */
+height: auto;    /* ปรับความสูงอัตโนมัติ */
+z-index: 100;    /* อยู่ชั้นบนสุดของหน้าเว็บ */
+pointer-events: none; /* เพื่อไม่ให้ภาพบังการคลิกปุ่มด้านหลัง (ถ้ามี) */
+/* เพิ่มเงาเล็กน้อยให้ภาพลอยดูมีมิติ */
+filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2)); 
+}
+/* --- EDIT AREA END --- */
 </style>
 </head>
 
 <body>
-<div class="container">
+  <img src="กวัก.png" alt="แมวกวัก" class="floating-cat">
+  <div class="container">
 
 <div class="section center" style="border:none;box-shadow:none;background:transparent;">
 <div class="logo">
