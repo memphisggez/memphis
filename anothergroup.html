@@ -8,29 +8,46 @@
 <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-/* ใช้สไตล์เดียวกับหน้าแรกเพื่อให้ดีไซน์ต่อเนื่องกัน */
+/* ตั้งค่าพื้นฐานและ Smooth Scroll */
 html { scroll-behavior: smooth; }
+
 :root{
---bg:#f4f4f4;
+--bg-url: url('BG 1.gif'); 
 --main:#333333;
 --dark:#1a1a1a;
 --white:#FFFFFF;
 --glow:rgba(0,0,0,0.1);
 --accent:#666666;
+--stroke-color: #f3f5f4;
 }
 
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Mitr',sans-serif;}
 
 body{
-background:var(--bg);
+background-image: var(--bg-url);
+background-attachment: fixed;
+background-size: cover;
+background-position: center;
 display:flex;
 justify-content:center;
+min-height: 100vh;
+}
+
+/* ส่วนหัวข้อที่มีเส้นขอบ (Outline Stroke) */
+.section-title {
+  color: var(--dark);
+  -webkit-text-stroke: 1.2px var(--stroke-color);
+  paint-order: stroke fill;
+  font-size: 1.8rem;
+  text-align: center;
 }
 
 .container{
 max-width:500px;
 width:100%;
 padding:20px 15px 40px;
+position: relative;
+z-index: 1;
 }
 
 .section{
@@ -42,23 +59,22 @@ box-shadow:0 8px 20px rgba(0,0,0,0.05);
 border:2px solid var(--main);
 }
 
-h1,h2,h3{color:var(--dark);}
 .center{text-align:center;}
 
 .badges{
 display:flex;
 flex-wrap:wrap;
 justify-content:center;
-gap:10px;
-margin-bottom:20px;
+gap:8px;
+margin-bottom:15px;
 }
 
 .badge{
 background:#fff;
-padding:8px 16px;
+padding:4px 10px;
 border-radius:25px;
-box-shadow:0 4px 10px var(--glow);
-font-size:13px;
+box-shadow:0 2px 5px var(--glow);
+font-size:11px;
 color:var(--dark);
 border: 1px solid #eee;
 }
@@ -115,6 +131,8 @@ color: var(--dark);
 display: block;
 font-weight: 500;
 margin-bottom: 8px;
+height: 40px; /* คุมความสูงชื่อกลุ่มให้เท่ากัน */
+overflow: hidden;
 }
 
 .btn-back {
@@ -124,6 +142,10 @@ text-decoration: none;
 color: var(--main);
 font-size: 14px;
 font-weight: 500;
+background: rgba(255,255,255,0.9);
+padding: 6px 18px;
+border-radius: 25px;
+border: 1px solid var(--main);
 }
 
 .footer{
@@ -132,18 +154,31 @@ margin-top:30px;
 }
 
 .small{font-size:12px;opacity:.7;margin-top:10px;}
+
+/* แมวกวักลอย */
+.floating-cat {
+position: fixed;
+bottom: 20px;
+right: 20px;
+width: 100px;
+height: auto;
+z-index: 100;
+pointer-events: none;
+filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2)); 
+}
 </style>
 </head>
 
 <body>
+<img src="กวัก.png" alt="แมวกวัก" class="floating-cat">
+
 <div class="container">
 
 <a href="index.html" class="btn-back">← กลับหน้าหลัก</a>
 
-
 <div class="section">
-<h2 class="center">📁 รายการกลุ่มงานป้ายอื่นๆ</h2>
-<p class="center" style="font-size: 14px; color: var(--accent); margin-bottom: 15px;">
+<h2 class="section-title">📁 รายการกลุ่มงานป้ายอื่นๆ</h2>
+<p class="center" style="font-size: 14px; color: var(--accent); margin-top: 5px; margin-bottom: 15px;">
 คลิกเพื่อดูตัวอย่างงานใน Google Drive
 </p>
 
