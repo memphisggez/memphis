@@ -25,6 +25,56 @@ html {
 
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Mitr',sans-serif;}
 
+/* --- CSS สำหรับกล่องเมนูแบบกระชับ (Compact) --- */
+.compact-section {
+    padding: 15px 20px; /* ลด padding รอบนอกของกล่องขาวลง */
+}
+.compact-section h2 {
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+}
+.compact-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f9f9f9;
+    padding: 8px 15px; /* ลดความสูงของแต่ละบรรทัด */
+    margin-bottom: 6px; /* ลดระยะห่างระหว่างบรรทัด */
+    border-radius: 10px;
+    border-left: 4px solid var(--accent);
+    text-decoration: none;
+    color: var(--dark);
+    font-size: 14px;
+    font-weight: 500;
+    transition: 0.2s;
+}
+.compact-link:hover {
+    background: #f0f0f0;
+    border-left-color: var(--dark);
+    transform: translateX(4px); /* ลูกเล่นขยับขวานิดๆ เวลาเอาเมาส์ชี้ */
+}
+.compact-link .arrow {
+    color: var(--accent);
+    font-weight: bold;
+}
+.btn-compact {
+    display: block;
+    text-align: center;
+    background: var(--main);
+    color: #fff;
+    padding: 10px; /* ลดความสูงปุ่มด้านล่าง */
+    border-radius: 12px; 
+    text-decoration: none;
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: 0.3s;
+}
+.btn-compact:hover {
+    background: var(--dark);
+    transform: scale(1.02);
+}
+
 body{
 background-image: var(--bg-url);
 background-attachment: fixed;
@@ -345,22 +395,26 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
         </div>
       </div>
 
-      <div class="section">
-        <h2>💰 รายการสินค้าและบริการ</h2>
-        <div class="price-row">
-            <span>กลุ่มงานป้ายในเครือ</span>
-            <a href="#target-group" class="price-tag-link">คลิก</a>
-        </div>
-        <div class="price-row">
-            <span>กลุ่มงานป้ายอื่นๆ</span>
-            <a href="anothergroup.html" class="price-tag-link">คลิก</a>
-        </div>
-        <div class="price-row">
-            <span>Id Genshin</span>
-            <a href="id-genshin.html" class="price-tag-link">คลิก</a>
-        </div>
-        <a href="#" class="btn btn-main">ดูตารางราคาแบบละเอียด</a>
-      </div>
+      <div class="section compact-section">
+  <h2>💰 รายการสินค้าและบริการ</h2>
+  
+  <a href="#target-group" class="compact-link">
+      <span>กลุ่มงานป้ายในเครือ</span>
+      <span class="arrow">→</span>
+  </a>
+  
+  <a href="anothergroup.html" class="compact-link">
+      <span>กลุ่มงานป้ายอื่นๆ</span>
+      <span class="arrow">→</span>
+  </a>
+  
+  <a href="id-genshin.html" class="compact-link">
+      <span>Id Genshin</span>
+      <span class="arrow">→</span>
+  </a>
+  
+  <a href="#" class="btn-compact">ดูตารางราคาแบบละเอียด</a>
+</div>
 
       <a href="https://www.facebook.com/share/p/1HmGcAM5Uq/" target="_blank" class="btn btn-outline">
         <img src="ปกเฟส.png" alt="Check Credit">
