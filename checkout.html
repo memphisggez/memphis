@@ -316,7 +316,7 @@
                 } catch (error) {
                     // เกิดข้อผิดพลาด
                     statusBox.className = 'status-box status-error';
-                    statusBox.innerHTML = '❌ เกิดข้อผิดพลาดในการส่งข้อมูล กรุณาลองใหม่ หรือติดต่อแอดมิน';
+                    statusBox.innerHTML = '❌ Error: ' + error.message;
                     submitBtn.disabled = false;
                     submitBtn.innerHTML = 'ลองส่งข้อมูลอีกครั้ง';
                     console.error('Error:', error);
