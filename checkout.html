@@ -255,10 +255,74 @@
             reader.readAsDataURL(file);
         });
 
-        // 3. ระบบส่งข้อมูล
-        document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+        // 3. ระบบส่งข้อมูลไปยัง Google Apps Script
+        document.getElementById('checkoutForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            alert('เตรียมส่งข้อมูลไปที่ Google Apps Script เพื่อดึงเข้ากลุ่ม!');
+
+            // ⚠️ [เอาลิงก์ Web App URL ที่ก๊อปปี้มา วางแทนที่ URL ด้านล่างนี้เลยครับ] ⚠️
+            const API_URL = 'https://script.google.com/macros/s/AKfycbzD99Dp9iJe105n5T2FMcjAnqMXw33c0dN1XPBAoTB3FQp9uwRLhhRvW8xV7-Y-x0kN/exec';
+
+            const submitBtn = document.getElementById('submitBtn');
+            const statusBox = document.getElementById('statusBox');
+            const fileInput = document.getElementById('slipInput');
+            const lineId = document.getElementById('lineId').value;
+            const groupName = document.getElementById('itemName').innerText;
+            const price = document.getElementById('itemPrice').innerText;
+
+            if (!fileInput.files.length) {
+                alert('กรุณาเลือกไฟล์สลิปก่อนครับ');
+                return;
+            }
+
+            const file = fileInput.files[0];
+
+            // เปลี่ยนปุ่มเป็นสถานะกำลังโหลด
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '⏳ กำลังส่งข้อมูล... (ห้ามปิดหน้านี้)';
+            statusBox.className = 'status-box';
+            statusBox.innerHTML = 'กำลังอัปโหลดสลิปและข้อมูลของคุณ...';
+
+            // แปลงไฟล์ภาพเป็นรหัส Base64 เพื่อส่งข้าม API
+            const reader = new FileReader();
+            reader.onload = async function(event) {
+                const base64String = event.target.result.split(',')[1];
+
+                const payload = {
+                    lineId: lineId,
+                    groupName: groupName,
+                    price: price,
+                    slipName: file.name,
+                    mimeType: file.type,
+                    slipBase64: base64String
+                };
+
+                try {
+                    // ส่งข้อมูลไปที่ Google Apps Script
+                    const response = await fetch(API_URL, {
+                        method: 'POST',
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+
+                    if (result.status === 'success') {
+                        // ส่งสำเร็จ!
+                        statusBox.className = 'status-box status-success';
+                        statusBox.innerHTML = '🎉 แจ้งโอนสำเร็จ! กรุณารอแอดมินดึงเข้ากลุ่มผ่าน Line นะครับ';
+                        submitBtn.innerHTML = '✅ ส่งข้อมูลเรียบร้อยแล้ว';
+                    } else {
+                        throw new Error(result.message);
+                    }
+                } catch (error) {
+                    // เกิดข้อผิดพลาด
+                    statusBox.className = 'status-box status-error';
+                    statusBox.innerHTML = '❌ เกิดข้อผิดพลาดในการส่งข้อมูล กรุณาลองใหม่ หรือติดต่อแอดมิน';
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = 'ลองส่งข้อมูลอีกครั้ง';
+                    console.error('Error:', error);
+                }
+            };
+            reader.readAsDataURL(file);
         });
     </script>
 </body>
