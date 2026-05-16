@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memphis - Checkout</title>
+    <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+
+    <style>
+        :root{
+            --bg-url: url('BG 1.gif'); 
+            --main:#333333;
+            --dark:#1a1a1a;
+            --white:#FFFFFF;
+            --accent:#666666;
+            --danger: #e74c3c;
+            --success: #2ecc71;
+        }
+
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Mitr',sans-serif;}
+
+        body{
+            background-image: var(--bg-url);
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+            display:flex;
+            justify-content:center;
+            align-items: center;
+            min-height: 100vh; 
+            color: var(--dark);
+        }
+
+        .checkout-container {
+            background: var(--white);
+            max-width: 450px;
+            width: 90%;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border: 2px solid var(--main);
+            margin: 20px 0;
+        }
+
+        .header { text-align: center; margin-bottom: 20px; }
+        .header h1 { font-size: 1.5rem; }
+        
+        .order-summary {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--main);
+        }
+
+        .qr-section {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .qr-section img {
+            width: 200px;
+            height: 200px;
+            border-radius: 15px;
+            border: 2px dashed #ccc;
+            margin: 10px 0;
+        }
+
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-weight: 500; margin-bottom: 5px; font-size: 14px;}
+        .form-group input[type="text"], .form-group input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-family: 'Mitr', sans-serif;
+        }
+
+        .status-box {
+            display: none; /* ซ่อนไว้ก่อน จะโชว์ตอนตรวจสลิป */
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 14px;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        .status-error { background: #fadbd8; color: var(--danger); display: block; }
+        .status-success { background: #d5f5e3; color: var(--success); display: block; }
+
+        .btn-submit {
+            width: 100%;
+            background: var(--main);
+            color: #fff;
+            padding: 15px;
+            border: none;
+            border-radius: 15px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-submit:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .btn-submit:not(:disabled):hover { background: var(--dark); }
+
+        /* ซ่อน Canvas ที่ใช้ประมวลผลรูป */
+        #qr-canvas { display: none; } 
+    </style>
+</head>
+<body>
+
+    <div class="checkout-container">
+        <div class="header">
+            <h1>ชำระเงิน / แจ้งโอน</h1>
+            <p style="font-size: 14px; color: var(--accent);">อัปโหลดสลิปเพื่อรับลิงก์เข้ากลุ่ม</p>
+        </div>
+
+        <div class="order-summary">
+            <div style="display: flex; justify-content: space-between;">
+                <span>รายการ: <strong>กลุ่มงานป้าย (ออโต้)</strong></span>
+                <span><strong>99 บาท</strong></span>
+            </div>
+        </div>
+
+        <div class="qr-section">
+            <p>สแกน QR Code เพื่อชำระเงิน</p>
+            <img src="YOUR_PROMPTPAY_QR.jpg" alt="QR Code รับเงิน">
+            <p><strong>ธนาคารกสิกรไทย : 123-4-56789-0</strong></p>
+            <p style="font-size: 12px; color: var(--accent);">ชื่อบัญชี: คิล กราฟิกดีไซน์</p>
+        </div>
+
+        <form id="checkoutForm">
+            <div class="form-group">
+                <label for="lineId">Line ID ของคุณ (เพื่อใช้ยืนยันตัวตน)</label>
+                <input type="text" id="lineId" placeholder="พิมพ์ไอดีไลน์ของคุณ" required>
+            </div>
+
+            <div class="form-group">
+                <label for="slipInput">อัปโหลดภาพสลิปโอนเงิน (ต้องมี QR Code)</label>
+                <input type="file" id="slipInput" accept="image/jpeg, image/png, image/jpg" required>
+            </div>
+
+            <div id="statusBox" class="status-box">กำลังรอสลิป...</div>
+
+            <button type="submit" id="submitBtn" class="btn-submit" disabled>
+                🔒 กรุณาอัปโหลดสลิปที่ถูกต้อง
+            </button>
+        </form>
+
+        <canvas id="qr-canvas"></canvas>
+    </div>
+
+    <script>
+        const slipInput = document.getElementById('slipInput');
+        const submitBtn = document.getElementById('submitBtn');
+        const statusBox = document.getElementById('statusBox');
+        const canvas = document.getElementById('qr-canvas');
+        const ctx = canvas.getContext('2d', { willReadFrequently: true });
+
+        slipInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            statusBox.className = 'status-box';
+            statusBox.style.display = 'block';
+            statusBox.innerHTML = '⏳ กำลังตรวจสอบรูปภาพ...';
+            submitBtn.disabled = true;
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const img = new Image();
+                img.onload = function() {
+                    // วาดรูปลงบน Canvas ที่ซ่อนไว้เพื่อสกัดพิกเซล
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    ctx.drawImage(img, 0, 0, img.width, img.height);
+                    
+                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    
+                    // ใช้ไลบรารี jsQR ค้นหา QR Code ในภาพ
+                    const code = jsQR(imageData.data, imageData.width, imageData.height);
+
+                    if (code) {
+                        // เจอ QR Code! ปลดล็อคปุ่ม
+                        statusBox.className = 'status-box status-success';
+                        statusBox.innerHTML = '✅ ตรวจพบ QR Code บนสลิปเรียบร้อย!';
+                        submitBtn.innerHTML = 'ส่งข้อมูลแจ้งโอนเงิน';
+                        submitBtn.disabled = false;
+                    } else {
+                        // ไม่เจอ QR Code
+                        statusBox.className = 'status-box status-error';
+                        statusBox.innerHTML = '❌ ไม่พบ QR Code กรุณาแนบรูปสลิปของจริง';
+                        submitBtn.innerHTML = '🔒 กรุณาอัปโหลดสลิปที่ถูกต้อง';
+                        slipInput.value = ''; // เคลียร์รูปทิ้ง บังคับให้อัปใหม่
+                    }
+                }
+                img.src = event.target.result;
+            }
+            reader.readAsDataURL(file);
+        });
+
+        // เมื่อกดปุ่มส่งข้อมูล (จะทำในสเต็ปต่อไป)
+        document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('เตรียมส่งข้อมูลไปที่ Google Apps Script เพื่อดึงเข้ากลุ่ม!');
+            // โค้ดส่วนนี้เราจะมาเขียนต่อตอนทำระบบหลังบ้านครับ
+        });
+    </script>
+</body>
+</html>
