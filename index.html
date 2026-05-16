@@ -20,60 +20,10 @@ html {
 --white:#FFFFFF;
 --glow:rgba(0,0,0,0.1);
 --accent:#666666;
---stroke-color: #f3f5f4; /* โค้ดสีเส้นขอบที่ต้องการ */
+--stroke-color: #f3f5f4; 
 }
 
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Mitr',sans-serif;}
-
-/* --- CSS สำหรับกล่องเมนูแบบกระชับ (Compact) --- */
-.compact-section {
-    padding: 15px 20px; /* ลด padding รอบนอกของกล่องขาวลง */
-}
-.compact-section h2 {
-    font-size: 1.1rem;
-    margin-bottom: 12px;
-}
-.compact-link {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #f9f9f9;
-    padding: 8px 15px; /* ลดความสูงของแต่ละบรรทัด */
-    margin-bottom: 6px; /* ลดระยะห่างระหว่างบรรทัด */
-    border-radius: 10px;
-    border-left: 4px solid var(--accent);
-    text-decoration: none;
-    color: var(--dark);
-    font-size: 14px;
-    font-weight: 500;
-    transition: 0.2s;
-}
-.compact-link:hover {
-    background: #f0f0f0;
-    border-left-color: var(--dark);
-    transform: translateX(4px); /* ลูกเล่นขยับขวานิดๆ เวลาเอาเมาส์ชี้ */
-}
-.compact-link .arrow {
-    color: var(--accent);
-    font-weight: bold;
-}
-.btn-compact {
-    display: block;
-    text-align: center;
-    background: var(--main);
-    color: #fff;
-    padding: 10px; /* ลดความสูงปุ่มด้านล่าง */
-    border-radius: 12px; 
-    text-decoration: none;
-    margin-top: 10px;
-    font-size: 14px;
-    font-weight: 500;
-    transition: 0.3s;
-}
-.btn-compact:hover {
-    background: var(--dark);
-    transform: scale(1.02);
-}
 
 body{
 background-image: var(--bg-url);
@@ -99,12 +49,61 @@ min-height: 100vh;
   -webkit-text-stroke: 0.8px var(--stroke-color);
   paint-order: stroke fill;
 }
-/* ---------------------------------- */
 
-/* --- เปลี่ยนจาก .container เป็น .layout-wrapper เพื่อรองรับ PC --- */
+/* --- CSS สำหรับกล่องเมนูแบบกระชับ (Compact) --- */
+.compact-section {
+    padding: 15px 20px; 
+}
+.compact-section h2 {
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+}
+.compact-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f9f9f9;
+    padding: 8px 15px; 
+    margin-bottom: 6px; 
+    border-radius: 10px;
+    border-left: 4px solid var(--accent);
+    text-decoration: none;
+    color: var(--dark);
+    font-size: 14px;
+    font-weight: 500;
+    transition: 0.2s;
+}
+.compact-link:hover {
+    background: #f0f0f0;
+    border-left-color: var(--dark);
+    transform: translateX(4px); 
+}
+.compact-link .arrow {
+    color: var(--accent);
+    font-weight: bold;
+}
+.btn-compact {
+    display: block;
+    text-align: center;
+    background: var(--main);
+    color: #fff;
+    padding: 10px; 
+    border-radius: 12px; 
+    text-decoration: none;
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: 0.3s;
+}
+.btn-compact:hover {
+    background: var(--dark);
+    transform: scale(1.02);
+}
+
+/* --- CSS สำหรับ Layout 2 ฝั่ง --- */
 .layout-wrapper {
   width: 100%;
-  max-width: 500px; /* ขนาดเริ่มต้นสำหรับมือถือ */
+  max-width: 500px; 
   padding: 20px 15px 40px;
   position: relative;
   z-index: 1;
@@ -125,7 +124,7 @@ h1,h2,h3{color:var(--dark);}
 .center{text-align:center;}
 
 .logo{
-width:150px;height:150px;
+width:120px;height:120px; /* ย่อโลโก้ลงนิดนึงให้ดูพอดี */
 border-radius:50%;
 overflow:hidden;
 margin:0 auto 20px;
@@ -153,17 +152,6 @@ color:var(--dark);
 border: 1px solid #eee;
 }
 
-.btn{
-display:block;
-text-align:center;
-padding:14px;
-border-radius:25px;
-text-decoration:none;
-margin-top:15px;
-font-weight:500;
-transition: 0.3s;
-}
-
 .btn-outline{
 background:#fff;
 border:2px dashed var(--main);
@@ -189,6 +177,14 @@ border-radius: 10px;
 .btn-main{
 background:var(--main);
 color:#fff;
+display:block;
+text-align:center;
+padding:14px;
+border-radius:25px;
+text-decoration:none;
+margin-top:15px;
+font-weight:500;
+transition: 0.3s;
 }
 
 .step{
@@ -262,46 +258,23 @@ font-size: 10px;
 border-radius: 15px;
 }
 
-.price-row{
-display:flex;
-justify-content:space-between;
-align-items: center;
-margin-bottom:10px;
-background:#f9f9f9;
-padding:10px 15px;
-border-radius:15px;
-border-left: 4px solid var(--accent);
+/* --- CSS สำหรับปุ่มราคาใต้การ์ด --- */
+.card-price {
+    background-color: #e6f0f0; 
+    color: #888; 
+    padding: 8px 0;
+    border-radius: 20px;
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: 500;
+    display: block;
+    width: 100%;
+    transition: 0.3s;
 }
 
-.price-tag-link{
-background:var(--main);
-color:#fff;
-padding:3px 15px;
-border-radius:20px;
-font-size:14px;
-text-decoration: none;
-transition: 0.3s;
-}
-
-.price-tag-link:hover {
-background: var(--dark);
-transform: scale(1.05);
-}
-
-.price-tag{
-background:var(--main);
-color:#fff;
-padding:3px 12px;
-border-radius:20px;
-font-size:14px;
-}
-
-.group-banner {
-width:100%;
-height:auto;
-border-radius:15px;
-margin-top:10px;
-border: 1px solid #ddd;
+.portfolio-card:hover .card-price {
+    background-color: var(--main);
+    color: #fff;
 }
 
 .footer{
@@ -351,22 +324,20 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
     flex-direction: row; 
     align-items: flex-start;
     gap: 30px;
-    padding: 30px 20px; /* ลด padding ลงนิดหน่อย */
+    padding: 30px 20px; 
   }
 
   .left-sidebar {
     flex: 1; 
     position: sticky; 
-    top: 20px; /* ให้มันชิดขอบบนขึ้นอีกนิด */
+    top: 20px; 
     max-width: 400px;
     
-    /* --- โค้ดที่เพิ่มใหม่เพื่อแก้ปัญหาจอเล็ก --- */
-    max-height: calc(100vh - 40px); /* บังคับไม่ให้กล่องซ้ายสูงเกินจอ */
-    overflow-y: auto; /* ถ้าเนื้อหายาวเกินจอ ให้ไถดูเฉพาะฝั่งซ้ายได้ */
-    scrollbar-width: none; /* ซ่อนหลอดเลื่อน (Firefox) */
+    max-height: calc(100vh - 40px); 
+    overflow-y: auto; 
+    scrollbar-width: none; 
   }
   
-  /* ซ่อนหลอดเลื่อน (Chrome, Safari, Edge) ให้ดูเนียนๆ */
   .left-sidebar::-webkit-scrollbar {
     display: none; 
   }
@@ -406,31 +377,32 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
       </div>
 
       <div class="section compact-section">
-  <h2>💰 รายการสินค้าและบริการ</h2>
-  
-  <a href="#target-group" class="compact-link">
-      <span>กลุ่มงานป้ายในเครือ</span>
-      <span class="arrow">→</span>
-  </a>
-  
-  <a href="anothergroup.html" class="compact-link">
-      <span>กลุ่มงานป้ายอื่นๆ</span>
-      <span class="arrow">→</span>
-  </a>
-  
-  <a href="id-genshin.html" class="compact-link">
-      <span>Id Genshin</span>
-      <span class="arrow">→</span>
-  </a>
-  
-  <a href="#" class="btn-compact">ดูตารางราคาแบบละเอียด</a>
-</div>
+        <h2>💰 รายการสินค้าและบริการ</h2>
+        
+        <a href="#target-group" class="compact-link">
+            <span>กลุ่มงานป้ายในเครือ</span>
+            <span class="arrow">→</span>
+        </a>
+        
+        <a href="anothergroup.html" class="compact-link">
+            <span>กลุ่มงานป้ายอื่นๆ</span>
+            <span class="arrow">→</span>
+        </a>
+        
+        <a href="id-genshin.html" class="compact-link">
+            <span>Id Genshin</span>
+            <span class="arrow">→</span>
+        </a>
+        
+        <a href="#" class="btn-compact">ดูตารางราคาแบบละเอียด</a>
+      </div>
 
       <a href="https://www.facebook.com/share/p/1HmGcAM5Uq/" target="_blank" class="btn btn-outline">
         <img src="ปกเฟส.png" alt="Check Credit">
         <span>เช็คเครดิต Memphis ✨</span>
       </a>
     </div>
+
     <div class="right-content">
       <div class="section" id="target-group">
         <h2 class="center">🔗 กลุ่มในเครือ Memphis</h2>
@@ -447,6 +419,7 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
                     <div class="badge">📝 กลุ่มสอน</div>
                     <div class="badge">💪 งานเยอะ</div>
                 </div>
+                <div class="card-price">ราคา 99.-</div>
             </a>
 
             <a href="https://drive.google.com/drive/folders/1p6glllZ-mVtNFLdFlEyVS5R4aXw_D8cl?usp=sharing" target="_blank" class="portfolio-card">
@@ -457,6 +430,7 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
                     <div class="badge">📁 กลุ่มรวม</div>
                     <div class="badge">✅ อัพงานครบกำหนด</div>
                 </div>
+                <div class="card-price">ราคา 99.-</div>
             </a>
             
             <a href="https://drive.google.com/drive/folders/1EEx9iIpJFX-UTKKku_f_6VIhLGVZ6zDf" target="_blank" class="portfolio-card">
@@ -467,6 +441,7 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
                     <div class="badge">🤏 แต่งง่าย</div>
                     <div class="badge">✅ อัพงานครบกำหนด</div>
                 </div>
+                <div class="card-price">ราคา 99.-</div>
             </a>
           
             <a href="https://drive.google.com/drive/folders/1D5bpH0UzxePfMuahehVpR3yN2Vfml7Eq?usp=sharing" target="_blank" class="portfolio-card">
@@ -477,6 +452,7 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
                     <div class="badge">🆕 บล็อกคุณนิว</div>
                     <div class="badge">✅ อัพงานครบกำหนด</div>
                 </div>
+                <div class="card-price">ราคา 99.-</div>
             </a>
 
             <a href="https://drive.google.com/drive/folders/1-E90fTGxxEnvAhkOH6_6JEKeRGzxj87z" target="_blank" class="portfolio-card">
@@ -488,6 +464,7 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
                     <div class="badge">🎨 เอฟเฟคคุณเรนริน</div>
                     <div class="badge">💪 งานเยอะ</div>
                 </div>
+                <div class="card-price">ราคา 99.-</div>
             </a>
 
             <a href="https://drive.google.com/drive/folders/1D5bpH0UzxePfMuahehVpR3yN2Vfml7Eq?usp=sharing" target="_blank" class="portfolio-card">
@@ -498,6 +475,7 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
                     <div class="badge">💮 บล็อกแนวเฮด</div>
                     <div class="badge">💪 งานเยอะ</div>
                 </div>
+                <div class="card-price">ราคา 99.-</div>
             </a>
 
             <a href="https://drive.google.com/drive/folders/1kfcugVrAJepP34WpeR1YdJLWYS7BGWC0?usp=sharing" target="_blank" class="portfolio-card">
@@ -510,6 +488,7 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
                     <div class="badge">🧸 ของตกแต่ง</div>
                     <div class="badge">💪 งานเยอะ</div>
                 </div>
+                <div class="card-price">ราคา 99.-</div>
             </a>
 
             <a href="https://drive.google.com/drive/folders/1Mae6ZQte9ueOIjEyQBrtacd0nWOOP4wK" target="_blank" class="portfolio-card">
@@ -520,6 +499,7 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
                     <div class="badge">🤏 แต่งง่าย</div>
                     <div class="badge">✅ อัพงานครบกำหนด</div>
                 </div>
+                <div class="card-price">ราคา 99.-</div>
             </a>
 
             <a href="https://drive.google.com/drive/folders/13PBWF5YAvjk2LpOxWXOH8b4XmwzZSAYe?usp=sharing" target="_blank" class="portfolio-card">
@@ -529,6 +509,7 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
                     <div class="badge">⭐ กลุ่มยอดฮิต</div>
                     <div class="badge">🎮 เกม</div>
                 </div>
+                <div class="card-price">ราคา 99.-</div>
             </a>
 
             <a href="https://drive.google.com/drive/folders/1k_gobew-Rxmvk_KG7c_laNWUWegrp4_L" target="_blank" class="portfolio-card">
@@ -538,6 +519,7 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
                     <div class="badge">🤏 แต่งง่าย</div>
                     <div class="badge">⏩️ มีแพลนอัพ</div>
                 </div>
+                <div class="card-price">ราคา 99.-</div>
             </a>
 
             <a href="https://drive.google.com/drive/folders/1PSzgDuAE5urwtd9FtK-A6f9S64xWAz-h" target="_blank" class="portfolio-card">
@@ -547,6 +529,7 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
                     <div class="badge">📝 กลุ่มสอน</div>
                     <div class="badge">✅ อัพงานครบกำหนด</div>
                 </div>
+                <div class="card-price">ราคา 99.-</div>
             </a>
 
             <a href="https://drive.google.com/drive/folders/1nselQfmYt8Kp6KWXEjl8EHEgSpLOJIXA" target="_blank" class="portfolio-card">
@@ -556,6 +539,7 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
                     <div class="badge">💪 งานเยอะ</div>
                     <div class="badge">⏩️ มีแพลนอัพ</div>
                 </div>
+                <div class="card-price">ราคา 99.-</div>
             </a>
 
             <a href="https://drive.google.com/drive/folders/1mmo68fjY_XuSSmNbaap8HHLPavcX9X2w?usp=sharing" target="_blank" class="portfolio-card">
@@ -564,6 +548,7 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
                 <div class="badges">
                     <div class="badge">⏩️ มีแพลนอัพ</div>
                 </div>
+                <div class="card-price">ราคา 99.-</div>
             </a>
 
             <a href="https://drive.google.com/drive/folders/1WLDP3XrvKSyes23R8PDk9Sr6lAt2vd2D" target="_blank" class="portfolio-card">
@@ -573,6 +558,7 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
                     <div class="badge">✅ อัพงานครบกำหนด</div>
                     <div class="badge">⏩️ มีแพลนอัพ</div>
                 </div>
+                <div class="card-price">ราคา 99.-</div>
             </a>
 
             <a href="https://drive.google.com/drive/folders/1-3GbKSVoXrLjO2OFt_Kx_kjAXPkUytpl" target="_blank" class="portfolio-card">
@@ -582,6 +568,7 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
                     <div class="badge">💮 บล็อกแนวเฮด</div>
                     <div class="badge">💪 งานเยอะ</div>
                 </div>
+                <div class="card-price">ราคา 99.-</div>
             </a>
 
             <a href="https://drive.google.com/drive/folders/101C0F-rq5H6qvNWbPi9DtdlnTLz9PAdp" target="_blank" class="portfolio-card">
@@ -591,6 +578,7 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
                     <div class="badge">✅ อัพงานครบกำหนด</div>
                     <div class="badge">👾 ADS</div>
                 </div>
+                <div class="card-price">ราคา 99.-</div>
             </a>
 
             <a href="https://drive.google.com/drive/folders/1jzDtR1YSkps8qb3dt1SkVqVO51BU4TPY" target="_blank" class="portfolio-card">
@@ -601,6 +589,7 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
                     <div class="badge">💮 บล็อกแนวเฮด</div>
                     <div class="badge">💪 งานเยอะ</div>
                 </div>
+                <div class="card-price">ราคา 99.-</div>
             </a>
 
             <a href="https://drive.google.com/drive/folders/13PIIlxos9e5CedxI6SeTICm73ecIUHaN" target="_blank" class="portfolio-card">
@@ -610,6 +599,7 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
                     <div class="badge">✅ อัพงานครบกำหนด</div>
                     <div class="badge">🤏 แต่งง่าย</div>
                 </div>
+                <div class="card-price">ราคา 99.-</div>
             </a>
 
             <a href="https://drive.google.com/drive/folders/1PlavwgBcf9R27tprM2TQEL8TDwZ5xH3t" target="_blank" class="portfolio-card">
@@ -619,6 +609,7 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
                     <div class="badge">✅ อัพงานครบกำหนด</div>
                     <div class="badge">📁 กลุ่มรวม</div>
                 </div>
+                <div class="card-price">ราคา 99.-</div>
             </a>
 
             <a href="https://drive.google.com/drive/folders/1gCrMIpwCTShCzhynqmdLmcO_scCnR05y?usp=sharing" target="_blank" class="portfolio-card">
@@ -628,6 +619,7 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
                     <div class="badge">✅ อัพงานครบกำหนด</div>
                     <div class="badge">💮 บล็อกแนวเฮด</div>
                 </div>
+                <div class="card-price">ราคา 99.-</div>
             </a>
 
             <a href="https://drive.google.com/drive/folders/1mzmGBfb6gXqKlaeYj2ZJ9515RziUilnf" target="_blank" class="portfolio-card">
@@ -637,6 +629,7 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
                     <div class="badge">✅ อัพงานครบกำหนด</div>
                     <div class="badge">🌸 บล็อกแนวน่ารัก</div>
                 </div>
+                <div class="card-price">ราคา 99.-</div>
             </a>
 
             <a href="https://drive.google.com/drive/folders/1QPN3lQyYF-UmksAb-vfG3vg_RGFUKIWM" target="_blank" class="portfolio-card">
@@ -646,6 +639,7 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
                     <div class="badge">✅ อัพงานครบกำหนด</div>
                     <div class="badge">📝 กลุ่มสอน</div>
                 </div>
+                <div class="card-price">ราคา 99.-</div>
             </a>
 
             <a href="https://drive.google.com/drive/folders/10kHGkci9GSWygIj08t63mfz6iv5gjX4Q?usp=sharing" target="_blank" class="portfolio-card">
@@ -656,6 +650,7 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
                     <div class="badge">📝 กลุ่มสอน</div>
                     <div class="badge">🤠 บล็อกแนวเรโทร</div>
                 </div>
+                <div class="card-price">ราคา 99.-</div>
             </a>
 
             <a href="https://drive.google.com/drive/folders/11DHEzy_hizpvezRTj0zGxoB5Cwm_Q_3R" target="_blank" class="portfolio-card">
@@ -666,6 +661,7 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
                     <div class="badge">📝 กลุ่มสอน</div>
                     <div class="badge">💮 บล็อกแนวเฮด</div>
                 </div>
+                <div class="card-price">ราคา 99.-</div>
             </a>
 
             <a href="https://drive.google.com/drive/folders/101z3Zz9nn7LPPQZlvqheCPwJnMC_LjJ6?usp=drive_link" target="_blank" class="portfolio-card">
@@ -675,6 +671,7 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
                     <div class="badge">✅ อัพงานครบกำหนด</div>
                     <div class="badge">📝 กลุ่มสอน</div>
                 </div>
+                <div class="card-price">ราคา 99.-</div>
             </a>
 
             <a href="https://drive.google.com/drive/folders/1-74SxJ6YsQbD7E_gpgYe3VKWzRYUpGvN" target="_blank" class="portfolio-card">
@@ -684,6 +681,7 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
                     <div class="badge">✅ อัพงานครบกำหนด</div>
                     <div class="badge">📝 กลุ่มสอน</div>
                 </div>
+                <div class="card-price">ราคา 99.-</div>
             </a>
 
             <a href="https://drive.google.com/drive/folders/11WjMNCvbaVU7C5Tz-zm4LzLRW3GcGaIe" target="_blank" class="portfolio-card">
@@ -694,6 +692,7 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
                     <div class="badge">📝 กลุ่มสอน</div>
                     <div class="badge">ชื่อเก่า บัดดี้คุณขิม</div>
                 </div>
+                <div class="card-price">ราคา 99.-</div>
             </a>
 
             <a href="https://drive.google.com/drive/folders/1O0CmhEf3mtw0mrezpT-m_1enG492FeHM?usp=sharing" target="_blank" class="portfolio-card">
@@ -704,6 +703,7 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
                     <div class="badge">📝 กลุ่มสอน</div>
                     <div class="badge">🧩 ชิ้นส่วนบล็อก</div>
                 </div>
+                <div class="card-price">ราคา 99.-</div>
             </a>
 
             <a href="https://drive.google.com/drive/folders/1Lw7O5YLnocbu9i8DLVI9VSgJgHfsZ_bQ?usp=sharing" target="_blank" class="portfolio-card">
@@ -713,6 +713,7 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
                     <div class="badge">✅ อัพงานครบกำหนด</div>
                     <div class="badge">🧸 ของตกแต่ง</div>
                 </div>
+                <div class="card-price">ราคา 99.-</div>
             </a>
 
             <a href="https://drive.google.com/drive/folders/11dqsZMVEOpZqMwmd2ww2dElHmmerJzGf" target="_blank" class="portfolio-card">
@@ -722,6 +723,7 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
                     <div class="badge">✅ อัพงานครบกำหนด</div>
                     <div class="badge">🧸 ของตกแต่ง</div>
                 </div>
+                <div class="card-price">ราคา 99.-</div>
             </a>
 
             <a href="https://drive.google.com/drive/folders/12jkpFv3uNnxTqKHOv1ZT8x_B-UUFzswn" target="_blank" class="portfolio-card">
@@ -731,6 +733,7 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
                     <div class="badge">⏩️ มีแพลนอัพ</div>
                     <div class="badge">🧸 ของตกแต่ง</div>
                 </div>
+                <div class="card-price">ราคา 99.-</div>
             </a>
 
             <a href="https://drive.google.com/drive/folders/1P0WsOd4NMDIIUCpI7Eh-7S7BT8tNEbIy?usp=sharing" target="_blank" class="portfolio-card">
@@ -741,6 +744,7 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
                     <div class="badge">🧸 ของตกแต่ง</div>
                     <div class="badge">🎨 เอฟเฟค</div>
                 </div>
+                <div class="card-price">ราคา 99.-</div>
             </a>
 
             <a href="https://drive.google.com/drive/folders/1NyJeocKtom-PQomVvGpy58g6IKzdQge1?usp=drive_link" target="_blank" class="portfolio-card">
@@ -750,6 +754,7 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
                     <div class="badge">⏩️ มีแพลนอัพ</div>
                     <div class="badge">👫 ตูน</div>
                 </div>
+                <div class="card-price">ราคา 99.-</div>
             </a>
 
             <a href="https://drive.google.com/drive/folders/10qx4CLJ03Gev7QTH3iqVT7DvAbeXLxVn" target="_blank" class="portfolio-card">
@@ -758,6 +763,7 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
                 <div class="badges">
                     <div class="badge">✅ อัพงานครบกำหนด</div>
                 </div>
+                <div class="card-price">ราคา 99.-</div>
             </a>
 
             <a href="https://drive.google.com/drive/folders/1ye23VwvxFEANgXGN7NARQN4Qm1sd77xR?usp=sharing" target="_blank" class="portfolio-card">
@@ -768,6 +774,7 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
                     <div class="badge">👫 ตูน</div>
                     <div class="badge">⚠️ ปิดปรับปรุง</div>
                 </div>
+                <div class="card-price">ราคา 99.-</div>
             </a>
 
             <a href="https://drive.google.com/drive/folders/1sL4z-1cojXlktU6YC7vOHH-p3d_0vEK4?usp=sharing" target="_blank" class="portfolio-card">
@@ -781,6 +788,7 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
                     <div class="badge">💻 PSD</div>
                     <div class="badge">⚠️ ปิดปรับปรุง</div>
                 </div>
+                <div class="card-price">ราคา 99.-</div>
             </a>
         </div>
 
@@ -808,6 +816,7 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
         <p class="small">© 2026 Memphis Store - All Rights Reserved</p>
       </div>
     </div>
-    </div>
-  </body>
+
+  </div>
+</body>
 </html>
