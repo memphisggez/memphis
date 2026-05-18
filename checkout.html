@@ -47,7 +47,6 @@
         .header { text-align: center; margin-bottom: 20px; }
         .header h1 { font-size: 1.5rem; }
         
-        /* --- CSS ส่วนที่แก้ไขให้โชว์รูปภาพ --- */
         .order-summary {
             background: #f9f9f9;
             padding: 15px;
@@ -90,7 +89,6 @@
             color: var(--danger);
             font-size: 15px;
         }
-        /* --------------------------------- */
 
         .qr-section {
             text-align: center;
@@ -106,7 +104,9 @@
 
         .form-group { margin-bottom: 15px; }
         .form-group label { display: block; font-weight: 500; margin-bottom: 5px; font-size: 14px;}
-        .form-group input[type="text"], .form-group input[type="file"] {
+        
+        /* 🛠️ แก้ไขสไตล์ให้รองรับ input[type="email"] เพิ่มเข้ามา */
+        .form-group input[type="text"], .form-group input[type="email"], .form-group input[type="file"] {
             width: 100%;
             padding: 12px;
             border: 1px solid #ddd;
@@ -116,15 +116,33 @@
 
         .status-box {
             display: none; 
-            padding: 10px;
+            padding: 15px;
             border-radius: 10px;
             text-align: center;
             font-size: 14px;
             margin-bottom: 15px;
             font-weight: 500;
+            line-height: 1.5;
         }
         .status-error { background: #fadbd8; color: var(--danger); display: block; }
         .status-success { background: #d5f5e3; color: var(--success); display: block; }
+
+        /* ปุ่มลิงก์สำหรับกดเข้ากลุ่มไลน์ตอนทำรายการเสร็จ */
+        .line-group-btn {
+            display: inline-block;
+            background: #06C755;
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            margin-top: 10px;
+            font-size: 13px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+        .line-group-btn:hover {
+            background: #05b34c;
+        }
 
         .btn-submit {
             width: 100%;
@@ -152,7 +170,7 @@
     <div class="checkout-container">
         <div class="header">
             <h1>ชำระเงิน / แจ้งโอน</h1>
-            <p style="font-size: 14px; color: var(--accent);">อัปโหลดสลิปเพื่อรับลิงก์เข้ากลุ่ม</p>
+            <p style="font-size: 14px; color: var(--accent);">อัปโหลดสลิปเพื่อรับสิทธิ์เข้ากลุ่มอัตโนมัติ</p>
         </div>
 
         <div class="order-summary">
@@ -175,7 +193,12 @@
 
         <form id="checkoutForm">
             <div class="form-group">
-                <label for="lineId">Line ID ของคุณ (เพื่อใช้ยืนยันตัวตน)</label>
+                <label for="userEmail">Gmail ของคุณ (สำคัญมาก! สำหรับรับสิทธิ์เข้า Drive)</label>
+                <input type="email" id="userEmail" placeholder="พิมพ์ @gmail.com ของคุณให้ถูกต้อง" required>
+            </div>
+
+            <div class="form-group">
+                <label for="lineId">Line ID ของคุณ (เพื่อใช้ติดต่อกรณีมีปัญหา)</label>
                 <input type="text" id="lineId" placeholder="พิมพ์ไอดีไลน์ของคุณ" required>
             </div>
 
@@ -195,7 +218,7 @@
     </div>
 
     <script>
-        // 1. ดึงข้อมูลจาก URL (?group=...&price=...) มาแสดงผล
+        // 1. ดึงข้อมูลจาก URL มาแสดงผล
         document.addEventListener("DOMContentLoaded", function() {
             const urlParams = new URLSearchParams(window.location.search);
             const groupName = urlParams.get('group');
@@ -204,14 +227,13 @@
             if(groupName) {
                 document.getElementById('itemName').innerText = groupName;
                 document.getElementById('itemPrice').innerText = (price ? price : '99') + ' บาท';
-                // เดาชื่อไฟล์รูปภาพจากชื่อกลุ่ม (สมมติว่านามสกุล .jpg ตามที่คุณตั้งไว้ใน index)
                 document.getElementById('itemImg').src = groupName + '.jpg';
             } else {
                 document.getElementById('itemName').innerText = 'ไม่ได้ระบุกลุ่ม (โปรดกลับไปเลือกใหม่)';
             }
         });
 
-        // 2. ระบบแอบสแกนสลิป (ของเดิมที่คุณมี)
+        // 2. ระบบสแกนเช็ค QR Code ด่านหน้า
         const slipInput = document.getElementById('slipInput');
         const submitBtn = document.getElementById('submitBtn');
         const statusBox = document.getElementById('statusBox');
@@ -241,7 +263,7 @@
                     if (code) {
                         statusBox.className = 'status-box status-success';
                         statusBox.innerHTML = '✅ ตรวจพบ QR Code บนสลิปเรียบร้อย!';
-                        submitBtn.innerHTML = 'ส่งข้อมูลแจ้งโอนเงิน';
+                        submitBtn.innerHTML = 'ส่งข้อมูลแจ้งโอนเงินอัตโนมัติ';
                         submitBtn.disabled = false;
                     } else {
                         statusBox.className = 'status-box status-error';
@@ -259,15 +281,20 @@
         document.getElementById('checkoutForm').addEventListener('submit', async function(e) {
             e.preventDefault();
 
-            // ⚠️ [เอาลิงก์ Web App URL ที่ก๊อปปี้มา วางแทนที่ URL ด้านล่างนี้เลยครับ] ⚠️
-            const API_URL = 'https://script.google.com/macros/s/AKfycbwLUVw2n8hwaJjM02FSmX6LSywgmIqXdV2x-1IL1W5RWolWa3P_fTeUSRfHhB018K83/exec';
+            const API_URL = 'https://script.google.com/macros/s/AKfycbzjfAkuZiStabqen-iLrWOFsNrgdWRjFHuOjVbiHOackbOxdegGs1Gml54QhylJ63UF/exec';
 
             const submitBtn = document.getElementById('submitBtn');
             const statusBox = document.getElementById('statusBox');
             const fileInput = document.getElementById('slipInput');
+            
+            // 🛠️ ดึงค่า Gmail และข้อมูลฟอร์ม
+            const userEmail = document.getElementById('userEmail').value;
             const lineId = document.getElementById('lineId').value;
             const groupName = document.getElementById('itemName').innerText;
-            const price = document.getElementById('itemPrice').innerText;
+            
+            // 🛠️ สกัดเอาเฉพาะตัวเลขราคา (ตัดคำว่า " บาท" ทิ้งเพื่อให้หลังบ้านใช้ตัวเลขเช็คกับ SlipOK ได้แม่นยำ)
+            const rawPrice = document.getElementById('itemPrice').innerText;
+            const price = rawPrice.replace(/[^0-9.]/g, '');
 
             if (!fileInput.files.length) {
                 alert('กรุณาเลือกไฟล์สลิปก่อนครับ');
@@ -276,18 +303,18 @@
 
             const file = fileInput.files[0];
 
-            // เปลี่ยนปุ่มเป็นสถานะกำลังโหลด
             submitBtn.disabled = true;
-            submitBtn.innerHTML = '⏳ กำลังส่งข้อมูล... (ห้ามปิดหน้านี้)';
+            submitBtn.innerHTML = '⏳ กำลังตรวจสอบสลิปผ่านระบบธนาคาร...';
             statusBox.className = 'status-box';
-            statusBox.innerHTML = 'กำลังอัปโหลดสลิปและข้อมูลของคุณ...';
+            statusBox.innerHTML = 'ระบบกำลังส่งสลิปของคุณไปตรวจสอบความถูกต้องกับธนาคาร โปรดห้ามปิดหน้านี้...';
 
-            // แปลงไฟล์ภาพเป็นรหัส Base64 เพื่อส่งข้าม API
             const reader = new FileReader();
             reader.onload = async function(event) {
                 const base64String = event.target.result.split(',')[1];
 
+                // 🛠️ ส่ง email เพิ่มเข้าไปในก้อน Payload
                 const payload = {
+                    email: userEmail,
                     lineId: lineId,
                     groupName: groupName,
                     price: price,
@@ -297,7 +324,6 @@
                 };
 
                 try {
-                    // ส่งข้อมูลไปที่ Google Apps Script
                     const response = await fetch(API_URL, {
                         method: 'POST',
                         body: JSON.stringify(payload)
@@ -306,17 +332,19 @@
                     const result = await response.json();
 
                     if (result.status === 'success') {
-                        // ส่งสำเร็จ!
+                        // 🛠️ แจ้งโอนสำเร็จและส่งมอบลิงก์กลุ่มไลน์ให้กดเข้ากลุ่มต่อ
                         statusBox.className = 'status-box status-success';
-                        statusBox.innerHTML = '🎉 แจ้งโอนสำเร็จ! กรุณารอแอดมินดึงเข้ากลุ่มผ่าน Line นะครับ';
-                        submitBtn.innerHTML = '✅ ส่งข้อมูลเรียบร้อยแล้ว';
+                        statusBox.innerHTML = `🎉 อนุมัติสำเร็จ! ระบบดึง Gmail เข้าดูโฟลเดอร์เรียบร้อยแล้ว<br>
+                                               <small style="color:#666;">โปรดตรวจสอบสิทธิ์ที่แอป Google Drive</small><br><br>
+                                               <strong>👇 กดปุ่มด้านล่างเพื่อเข้ากลุ่ม LINE รับข่าวสาร 👇</strong><br>
+                                               <a href="https://line.me/ti/g/ใส่ลิงก์กลุ่มไลน์ของคิลตรงนี้" target="_blank" class="line-group-btn">🟢 เข้าร่วมกลุ่ม LINE</a>`;
+                        submitBtn.innerHTML = '✅ ตรวจสอบและดึงเข้ากลุ่มสำเร็จ';
                     } else {
                         throw new Error(result.message);
                     }
                 } catch (error) {
-                    // เกิดข้อผิดพลาด
                     statusBox.className = 'status-box status-error';
-                    statusBox.innerHTML = '❌ Error: ' + error.message;
+                    statusBox.innerHTML = '❌ Error: ' + error.message + '<br><br><small>หากมั่นใจว่าโอนเงินถูกต้อง กรุณาทักแชท Facebook เพื่อแจ้งแอดมินให้แก้ไขสิทธิ์ให้โดยตรงครับ</small>';
                     submitBtn.disabled = false;
                     submitBtn.innerHTML = 'ลองส่งข้อมูลอีกครั้ง';
                     console.error('Error:', error);
