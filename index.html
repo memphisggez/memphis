@@ -167,6 +167,43 @@ border: 1px solid #eee;
     100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 71, 87, 0); }
 }
 
+/* 🛠️ CSS ตกแต่งกล่องค้นหาแบบแอนิเมชันยืดหดสุดเท่ */
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+#searchInput {
+    width: 70%; /* เริ่มต้นที่ความกว้าง 70% เพื่อความคลีน */
+    padding: 12px 20px;
+    border-radius: 30px; /* มนกลมกลืนกับปุ่มอื่น */
+    border: 2px solid transparent;
+    background-color: #f5f5f5; 
+    font-family: 'Mitr', sans-serif;
+    font-size: 14px;
+    color: var(--dark);
+    outline: none;
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); /* ยืดนุ่มนวลสไตล์โมเดิร์น */
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+    text-align: center;
+}
+
+/* เอฟเฟกต์ตอนกดพิมพ์ ค้นหาจะยืดเต็ม 100% */
+#searchInput:focus {
+    width: 100%;
+    background-color: var(--white);
+    border-color: var(--main);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+    text-align: left;
+}
+
+#searchInput::placeholder {
+    color: #bbb;
+    font-weight: 400;
+}
+
 .btn-outline{
 background:#fff;
 border:2px dashed var(--main);
@@ -478,7 +515,11 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
           รายการกลุ่มในเครือที่แอดมินดึงเมลเอง
         </p>
 
-        <input type="text" id="searchInput" placeholder="🔍 พิมพ์ชื่อกลุ่มเพื่อค้นหาที่นี่..." style="width: 100%; padding: 12px 15px; border-radius: 12px; border: 1px solid #ddd; margin-bottom: 20px; font-family: 'Mitr', sans-serif; font-size: 14px; outline: none; transition: 0.3s; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);" onfocus="this.style.borderColor='var(--main)'" onblur="this.style.borderColor='#ddd'">
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="🔍 ค้นหาชื่อกลุ่มที่คุณต้องการซื้อได้ที่นี่..." autocomplete="off">
+        </div>
+
+        <div id="searchResultCount" style="text-align: center; font-size: 13px; color: var(--accent); margin-bottom: 20px; display: none; font-weight: 500;"></div>
 
         <div class="portfolio-grid">
             
@@ -987,18 +1028,29 @@ filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
           let filter = this.value.toLowerCase().trim();
           let cards = document.querySelectorAll('.portfolio-card');
           let dividers = document.querySelectorAll('.category-divider-wrapper');
+          let countDisplay = document.getElementById('searchResultCount');
+          let visibleCount = 0;
           
-          // ค้นหาการ์ดกลุ่ม
+          // ค้นหาและคัดกรองการ์ดกลุ่มทั้งหมด
           cards.forEach(function(card) {
               let groupName = card.querySelector('span').textContent.toLowerCase();
               if (groupName.includes(filter)) {
                   card.style.display = "flex";
+                  visibleCount++; // นับจำนวนกลุ่มที่ค้นเจอ
               } else {
                   card.style.display = "none";
               }
           });
 
-          // ซ่อนตัวคั่นหมวดหมู่ชั่วคราวเวลาที่พิมพ์ค้นหา (เพื่อไม่ให้เกะกะสายตา)
+          // อัปเดตการแสดงผลของตัวเลขนับคำค้นหา
+          if (filter !== "") {
+              countDisplay.style.display = "block";
+              countDisplay.innerHTML = `พบทั้งหมด <strong>${visibleCount}</strong> กลุ่มที่ตรงกับการค้นหา`;
+          } else {
+              countDisplay.style.display = "none";
+          }
+
+          // ซ่อนตัวคั่นหมวดหมู่ชั่วคราวเวลาพิมพ์ค้นหา เพื่อความสะอาดตา
           dividers.forEach(function(divider) {
               if (filter !== "") {
                   divider.style.display = "none";
