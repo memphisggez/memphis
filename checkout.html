@@ -1,3 +1,18 @@
+อ๊ะ! ขอโทษทีครับคิล ผมลืมไปว่าโค้ดที่คิลก็อปมามันแอบโดนตัดจบที่ <p ตรงส่วน QR Code พอดี เลยทำให้โค้ดส่วน <script> ที่อยู่ด้านล่างสุดหายไปครับ 😅
+
+ไม่ต้องห่วงครับ เดี๋ยวผมจะให้ โค้ด checkout.html แบบเต็มๆ สมบูรณ์แบบ ให้คิลไปเลยครับ โค้ดชุดนี้จะมีทั้งดีไซน์สวยๆ ระบบสแกน QR Code บนสลิป และฟังก์ชันเชื่อมต่อกับหลังบ้านที่เราเพิ่งทำเสร็จไป (รวมถึงบรรทัด API_URL ที่คิลต้องเอาลิงก์ใหม่มาใส่ด้วยครับ)
+
+สิ่งที่คิลต้องทำก่อนนำไปใช้:
+
+คัดลอกโค้ดด้านล่างนี้ทั้งหมด
+
+นำไปวางทับในไฟล์ checkout.html ตัวเต็มของคิล
+
+เลื่อนลงไปดูที่บรรทัดประมาณ 217 (หรือกดค้นหาคำว่า API_URL)
+
+นำ Web App URL ใหม่ล่าสุดที่คุณคัดลอกมาเมื่อครู่นี้ มาใส่แทนที่ข้อความ 'เอา_Web_App_URL_อันใหม่_มาวางตรงนี้' ให้เรียบร้อยครับ
+
+HTML
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -105,7 +120,6 @@
         .form-group { margin-bottom: 15px; }
         .form-group label { display: block; font-weight: 500; margin-bottom: 5px; font-size: 14px;}
         
-        /* 🛠️ แก้ไขสไตล์ให้รองรับ input[type="email"] เพิ่มเข้ามา */
         .form-group input[type="text"], .form-group input[type="email"], .form-group input[type="file"] {
             width: 100%;
             padding: 12px;
@@ -127,7 +141,6 @@
         .status-error { background: #fadbd8; color: var(--danger); display: block; }
         .status-success { background: #d5f5e3; color: var(--success); display: block; }
 
-        /* ปุ่มลิงก์สำหรับกดเข้ากลุ่มไลน์ตอนทำรายการเสร็จ */
         .line-group-btn {
             display: inline-block;
             background: #06C755;
@@ -184,8 +197,173 @@
 
         <div class="qr-section">
             <p>สแกน QR Code เพื่อชำระเงิน</p>
-            <img src="YOUR_PROMPTPAY_QR.png" alt="QR Code รับเงิน">
+            <img src="YOUR_PROMPTPAY_QR.png" alt="QR Code รับเงิน"> 
             <p><strong>Kbank : 213-8-03713-7</strong></p>
             <p><strong>SCB : 579-2-78259-4</strong></p>
             <p><strong>True wallet : 0988863400</strong></p>
-            <p
+            <p style="font-size: 12px; color: var(--accent);">ชื่อบัญชี : Kanokwan Ph.</p>
+        </div>
+
+        <form id="checkoutForm">
+            <div class="form-group">
+                <label for="userEmail">Gmail ของคุณ (สำคัญมาก! สำหรับรับสิทธิ์เข้า Drive)</label>
+                <input type="email" id="userEmail" placeholder="พิมพ์ @gmail.com ของคุณให้ถูกต้อง" required>
+            </div>
+
+            <div class="form-group">
+                <label for="lineId">Line ID ของคุณ (เพื่อใช้ติดต่อกรณีมีปัญหา)</label>
+                <input type="text" id="lineId" placeholder="พิมพ์ไอดีไลน์ของคุณ" required>
+            </div>
+
+            <div class="form-group">
+                <label for="slipInput">อัปโหลดภาพสลิปโอนเงิน (ต้องมี QR Code)</label>
+                <input type="file" id="slipInput" accept="image/jpeg, image/png, image/jpg" required>
+            </div>
+
+            <div id="statusBox" class="status-box">กำลังรอสลิป...</div>
+
+            <button type="submit" id="submitBtn" class="btn-submit" disabled>
+                🔒 กรุณาอัปโหลดสลิปที่ถูกต้อง
+            </button>
+        </form>
+
+        <canvas id="qr-canvas"></canvas>
+    </div>
+
+    <script>
+        // 1. ดึงข้อมูลจาก URL มาแสดงผลตอนลูกค้าคลิกเลือกกลุ่ม
+        document.addEventListener("DOMContentLoaded", function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const groupName = urlParams.get('group');
+            const price = urlParams.get('price');
+
+            if(groupName) {
+                document.getElementById('itemName').innerText = groupName;
+                document.getElementById('itemPrice').innerText = (price ? price : '99') + ' บาท';
+                document.getElementById('itemImg').src = groupName + '.jpg';
+            } else {
+                document.getElementById('itemName').innerText = 'ไม่ได้ระบุกลุ่ม (โปรดกลับไปเลือกใหม่)';
+            }
+        });
+
+        // 2. ระบบสแกนเช็ค QR Code ด่านหน้าก่อนส่งไปประมวลผล
+        const slipInput = document.getElementById('slipInput');
+        const submitBtn = document.getElementById('submitBtn');
+        const statusBox = document.getElementById('statusBox');
+        const canvas = document.getElementById('qr-canvas');
+        const ctx = canvas.getContext('2d', { willReadFrequently: true });
+
+        slipInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            statusBox.className = 'status-box';
+            statusBox.style.display = 'block';
+            statusBox.innerHTML = '⏳ กำลังตรวจสอบรูปภาพ...';
+            submitBtn.disabled = true;
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const img = new Image();
+                img.onload = function() {
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    ctx.drawImage(img, 0, 0, img.width, img.height);
+                    
+                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    const code = jsQR(imageData.data, imageData.width, imageData.height);
+
+                    if (code) {
+                        statusBox.className = 'status-box status-success';
+                        statusBox.innerHTML = '✅ ตรวจพบ QR Code บนสลิปเรียบร้อย!';
+                        submitBtn.innerHTML = 'ส่งข้อมูลแจ้งโอนเงินอัตโนมัติ';
+                        submitBtn.disabled = false;
+                    } else {
+                        statusBox.className = 'status-box status-error';
+                        statusBox.innerHTML = '❌ ไม่พบ QR Code กรุณาแนบรูปสลิปของจริง';
+                        submitBtn.innerHTML = '🔒 กรุณาอัปโหลดสลิปที่ถูกต้อง';
+                        slipInput.value = ''; 
+                    }
+                }
+                img.src = event.target.result;
+            }
+            reader.readAsDataURL(file);
+        });
+
+        // 3. ระบบส่งข้อมูลไปยัง Google Apps Script (หลังบ้าน)
+        document.getElementById('checkoutForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            // ⚠️ [สำคัญมาก!] ให้นำ Web App URL อันใหม่ล่าสุดมาวางทับข้อความในเครื่องหมายคำพูดด้านล่างนี้
+            const API_URL = 'https://script.google.com/macros/s/AKfycbwThg6kbV6kcxmVEADmZdadB3FMgUHuZrtwPIpgtVrwIXK6DBiqDIQY7k7F8BVuRXQD/exec';
+
+            const submitBtn = document.getElementById('submitBtn');
+            const statusBox = document.getElementById('statusBox');
+            const fileInput = document.getElementById('slipInput');
+            
+            const userEmail = document.getElementById('userEmail').value;
+            const lineId = document.getElementById('lineId').value;
+            const groupName = document.getElementById('itemName').innerText;
+            
+            const rawPrice = document.getElementById('itemPrice').innerText;
+            const price = rawPrice.replace(/[^0-9.]/g, '');
+
+            if (!fileInput.files.length) {
+                alert('กรุณาเลือกไฟล์สลิปก่อนครับ');
+                return;
+            }
+
+            const file = fileInput.files[0];
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '⏳ กำลังตรวจสอบสลิปผ่านระบบธนาคาร...';
+            statusBox.className = 'status-box';
+            statusBox.innerHTML = 'ระบบกำลังส่งสลิปของคุณไปตรวจสอบความถูกต้องกับธนาคาร โปรดห้ามปิดหน้านี้...';
+
+            const reader = new FileReader();
+            reader.onload = async function(event) {
+                const base64String = event.target.result.split(',')[1];
+
+                const payload = {
+                    email: userEmail,
+                    lineId: lineId,
+                    groupName: groupName,
+                    price: price,
+                    slipName: file.name,
+                    mimeType: file.type,
+                    slipBase64: base64String
+                };
+
+                try {
+                    const response = await fetch(API_URL, {
+                        method: 'POST',
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+
+                    if (result.status === 'success') {
+                        // 🟢 ดึงลิงก์ LINE กลุ่มที่แอบส่งมาจากหลังบ้าน มาทำเป็นปุ่มให้ลูกค้ากด
+                        const dynamicLineLink = result.lineLink;
+
+                        statusBox.className = 'status-box status-success';
+                        statusBox.innerHTML = `🎉 อนุมัติสำเร็จ! ระบบดึง Gmail เข้าดูโฟลเดอร์เรียบร้อยแล้ว<br>
+                                               <small style="color:#666;">โปรดตรวจสอบสิทธิ์ที่แอป Google Drive</small><br><br>
+                                               <strong>👇 กดปุ่มด้านล่างเพื่อเข้ากลุ่ม LINE 👇</strong><br>
+                                               <a href="${dynamicLineLink}" target="_blank" class="line-group-btn">🟢 เข้าร่วมกลุ่ม LINE เลย</a>`;
+                        submitBtn.innerHTML = '✅ ตรวจสอบและดึงเข้ากลุ่มสำเร็จ';
+                    } else {
+                        throw new Error(result.message);
+                    }
+                } catch (error) {
+                    statusBox.className = 'status-box status-error';
+                    statusBox.innerHTML = '❌ Error: ' + error.message + '<br><br><small>หากมั่นใจว่าโอนเงินถูกต้อง กรุณาทักแชท Facebook แจ้งแอดมินครับ</small>';
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = 'ลองส่งข้อมูลอีกครั้ง';
+                }
+            };
+            reader.readAsDataURL(file);
+        });
+    </script>
+</body>
+</html>
